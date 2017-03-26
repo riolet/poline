@@ -18,6 +18,8 @@ Example output:
 216.58.193.67	    *
 ```
 
+The equivalent awk version can be found on [commandlinefu](http://www.commandlinefu.com/commands/view/2012/graph-of-connections-for-each-hosts).
+
 # Quick Start
 pol gives you a list of list in the variable
 ```
