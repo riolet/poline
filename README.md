@@ -20,6 +20,14 @@ Example output:
 
 The equivalent awk version can be found on [commandlinefu](http://www.commandlinefu.com/commands/view/2012/graph-of-connections-for-each-hosts).
 
+# Usage
+
+```
+pol [options] one-liner
+Options
+-F separator 		: Field Separator
+```
+
 # Quick Start
 You can build and install pol from source as follows:
 
