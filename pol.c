@@ -19,6 +19,7 @@ main(int argc, char *argv[])
 
     char * header = "from __future__ import print_function\n"
              "import sys\n"
+             "sortedbycount = lambda l, reverse=False: sorted([{'e':e, 'c':l.count(e)} for e in sorted(set(l))], key=lambda k: k['c'], reverse=reverse)\n"
              "_=[line.strip().split() for line in sys.stdin.readlines()]\n";
 
     size_t len = strlen(header);

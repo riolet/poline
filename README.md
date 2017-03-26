@@ -3,7 +3,7 @@ pol lets you do awk-like one liners in python.
 
 For example, the following will graph the number of connections for each hosts.
 ```bash
-$ netstat -an | pol "l=[l[4].split(':')[0] for l in _ if len(l)>5 and l[5]=='ESTABLISHED']; s=sorted([{'h':e,'c':l.count(e)} for e in set(l)],key=lambda k: k['c'], reverse=True); map(print,['{}\t{}'.format(i['h'],'*' * i['c']) for i in s])"
+$ netstat -an | pol "map(print,['{}\t{}'.format(i['e'],'*' * i['c']) for i in sortedbycount([l[4].split(':')[0] for l in _ if len(l)>5 and l[5]=='ESTABLISHED'],True)])"
 ```
 
 Example output:
@@ -41,8 +41,22 @@ $ ls -lah | pol "map(print,_)"
 ['drwxr-xr-x', '69', 'root', 'root', '20K', 'Mar', '25', '13:44', 'include']
 ```
 
+# Utility Functions
 
+## sortedbycount(list,reversed=False)
 
+Sorts a list by assending order, and returns a list of dictionaries, in the form
+
+```
+[{e:<element1>,c:<count1>'},{e:<element2>,c:<count2>'},...,{e:<elementn>,c:<countn>'},
+```
+
+For example:
+
+```
+>>> sortedbycount(['i','n','f','o','r','m','a','t','i','o','n'],reverse=True)
+[{'c': 2, 'e': 'i'}, {'c': 2, 'e': 'n'}, {'c': 2, 'e': 'o'}, {'c': 1, 'e': 'a'}, {'c': 1, 'e': 'f'}, {'c': 1, 'e': 'm'}, {'c': 1, 'e': 'r'}, {'c': 1, 'e': 't'}]
+```
 
 
 
