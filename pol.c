@@ -1,7 +1,11 @@
 /*
 * Author: Rohana Rezel
-* Acknowledgements:
-* Code concatenation
+*
+* MIT License
+* Copyright (c) 2017 Riolet Corporation
+*
+* Acknowledgements
+* Argument concatenation
 * http://stackoverflow.com/questions/3126882/concatenate-all-arguments-except-the-executable-name
 */
 #include <Python.h>
