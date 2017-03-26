@@ -19,6 +19,51 @@ void usage(void)
     printf ("-F separator \t\t: Field Separator \n");
 }
 
+
+size_t escape_chars (char *dst, const char *src, size_t size)
+{
+    char escapees[] = {'\\','\''};
+    size_t dstlen = strlen(dst);
+
+    while(*src) {
+        int i;
+        for (i=0;i<sizeof(escapees);i++) {
+            if (*src == escapees[i]) {
+                *dst = '\\';
+                if (dstlen >= size-1) {
+                    *dst = 0;
+                    return dstlen;
+                }
+                dstlen++;
+                dst ++;
+
+                *dst = escapees[i];
+                if (dstlen>=size-1) {
+                    *dst = 0;
+                    return dstlen;
+                }
+                dstlen++;
+                dst ++;
+                src ++;
+
+            }
+        }
+         if (i==sizeof(escapees)) {
+            *dst = *src;
+            if (dstlen >= size-1) {
+                dst = 0;
+                return dstlen;
+            }
+            dstlen++;
+            dst ++;
+            src ++;
+        }
+    }
+    *dst = *src;
+    return dstlen;
+}
+
+
 int main(int argc, char *argv[])
 {
     unsigned int i;
@@ -36,15 +81,21 @@ int main(int argc, char *argv[])
             usage();
             exit(0);
             break;
+
           case 'F':
             optarg_len = strlen(optarg);
             if (optarg_len<1) {
                 fprintf(stderr,"Field separator must not be empty\n");
                 exit(1);
             }
-            field_separator = (char *) malloc(optarg_len+3);
-            snprintf(field_separator, optarg_len + 3, "'%s'", optarg);
+            char * escaped_optarg = (char *) malloc(optarg_len*2+1);
+            size_t escaped_optarg_len = escape_chars(escaped_optarg, optarg, optarg_len*2+1);
+            printf("escaped_optarg %s\n",escaped_optarg);
+            field_separator = (char *) malloc(escaped_optarg_len+3);
+            snprintf(field_separator, escaped_optarg_len + 3, "'%s'", escaped_optarg);
+            free(escaped_optarg);
             break;
+
           default:
             usage();
             exit(1);
