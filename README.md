@@ -21,11 +21,15 @@ Example output:
 The equivalent awk version can be found on [commandlinefu](http://www.commandlinefu.com/commands/view/2012/graph-of-connections-for-each-hosts).
 
 # Quick Start
-pol gives you a list of list in the variable
+You can build and install pol from source as follows:
+
 ```
-_
+make
+sudo make install
 ```
-Yes, that's the underscore.
+
+
+pol *stdin* in the variable *_* (underscore) in the form of a list of lists.
 
 pol also imports *print_function*, so print can be used as a function.
 
@@ -42,6 +46,8 @@ $ ls -lah | pol "map(print,_)"
 ```
 
 # Utility Functions
+
+We are in the process of adding utility functions to pol. Contributions are most welcome.
 
 ## sortedbycount(list,reversed=False)
 
