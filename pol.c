@@ -90,7 +90,6 @@ int main(int argc, char *argv[])
             }
             char * escaped_optarg = (char *) malloc(optarg_len*2+1);
             size_t escaped_optarg_len = escape_chars(escaped_optarg, optarg, optarg_len*2+1);
-            printf("escaped_optarg %s\n",escaped_optarg);
             field_separator = (char *) malloc(escaped_optarg_len+3);
             snprintf(field_separator, escaped_optarg_len + 3, "'%s'", escaped_optarg);
             free(escaped_optarg);
