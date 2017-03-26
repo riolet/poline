@@ -73,8 +73,12 @@ For example:
 ```
 
 
+# Examples
 
-
+#### The top ten commands you use most often
+```
+history | pol "map(print,['{}\t{}'.format(i['e'], i['c']) for i in sortedbycount([l[1] for l in _ if len(l)>1],True)][:10])"
+```
 
 
 
