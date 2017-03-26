@@ -37,9 +37,7 @@ sudo make install
 ```
 
 
-pol *stdin* in the variable *_* (underscore) in the form of a list of lists.
-
-pol also imports *print_function*, so print can be used as a function.
+pol stores *stdin* in the variable *_* (underscore) in the form of a list of lists.
 
 You can see what's inside *_* with:
 
@@ -52,6 +50,8 @@ $ ls -lah | pol "map(print,_)"
 ['drwxr-xr-x', '2', 'root', 'root', '4.0K', 'Jul', '19', '2016', 'games']
 ['drwxr-xr-x', '69', 'root', 'root', '20K', 'Mar', '25', '13:44', 'include']
 ```
+
+**N.B.** pol also imports *print_function*, so print can be used as a function.
 
 # Utility Functions
 
