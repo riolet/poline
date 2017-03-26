@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
     size_t len = strlen(header);
 
-    if (argv[optind] == NULL || argv[optind + 1] == NULL) {
+    if (argv[optind] == NULL) {
       usage();
       exit(1);
     }
