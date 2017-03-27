@@ -7,7 +7,7 @@ Please submit a PR with your one-liner to add it to the Hall of Fame.
 #### Graph the number of connections for IP address for your box, and to whom the IP address belongs to
 
 ```bash
-netstat -an | pol "map(print,['{}\t{:25.25}\t{}'.format(i['e'],get([' '.join(l[1:]) for l in sh('whois %s'%i['e']) if len(l)>0 and 'OrgName' in l[0]],0),'*' * i['c']) for i in sortedbycount([l[4].rsplit(':', 1)[0] for l in _ if len(l)>5 and l[5]=='ESTABLISHED'],True)[:10]])"
+netstat -an | pol "'%-17s%-40s%s' % (x, get([' '.join(l[1:]) for l in sh(['whois', x]) if 'OrgName' in l[0]], 0), '*' * c) for x, c in counter(url(l[4]).hostname for l in _ if l[5] == 'ESTABLISHED')" -s
 ```
 
 Example output
@@ -25,7 +25,7 @@ Example output
 
 #### The top ten commands you use most often
 ```
-history | pol "map(print,['{}\t{}'.format(i['e'], i['c']) for i in sortedbycount([l[1] for l in _ if len(l)>1],True)][:10])"
+history | pol "f'{x}\t{c}' for x, c in counter(l[1] for l in _ if l[1])" -s     
 ```
 
 Example output
@@ -46,7 +46,7 @@ gcc	18
 #### The list of largest open files
 
 ```
-lsof / | pol "[print('{}\t{}\t{}'.format(bytesize(x[2]),x[0],x[1])) for x in sorted(set([(l[0],get(l,8),int(l[6])) for l in _[1:]]),key=lambda x:x[2],reverse=True)[:10]]"
+lsof / | pol "'%s\t%s\t%s' % (bytesize(x[2]),x[0],x[1]) for x in sorted(set([(l[0],get(l,8),int(l[6])) for l in islice(_,1,None)]),key=itemgetter(2),reverse=True)[:10]" -s 
 ```
 
 Example output
