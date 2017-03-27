@@ -79,7 +79,7 @@ README.md 	360623
 
 get *i*th element from list *l* if the *i*th element exists, or return value d
 
-```
+```python
 >>> get([1, 2, 3, 4],1)
 2
 >>> get([1, 2, 3, 4],4,0)
@@ -96,9 +96,19 @@ Sorts a list by assending order, and returns a list of dictionaries, in the form
 
 Example:
 
-```
+```python
 >>> sortedbycount(['i','n','f','o','r','m','a','t','i','o','n'],reverse=True)
 [{'c': 2, 'e': 'i'}, {'c': 2, 'e': 'n'}, {'c': 2, 'e': 'o'}, {'c': 1, 'e': 'a'}, {'c': 1, 'e': 'f'}, {'c': 1, 'e': 'm'}, {'c': 1, 'e': 'r'}, {'c': 1, 'e': 't'}]
+```
+
+## bytesize(x)
+Returns the number of bytes *x* in a human readable string with a 'B', 'K', 'M', 'G', 'T', 'P' prefix.
+
+Example:
+
+```python
+>>> bytesize(972693249)
+'927.63 M'
 ```
 
 

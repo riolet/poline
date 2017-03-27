@@ -108,12 +108,20 @@ int main(int argc, char *argv[])
       exit(1);
     }
 
-    char * header = "from __future__ import print_function\n"
+    char * header =
+             "from __future__ import print_function\n"
              "import sys\n"
              "import os\n"
              "sortedbycount = lambda l, reverse=False: sorted([{'e':e, 'c':l.count(e)} for e in sorted(set(l))], key=lambda k: k['c'], reverse=reverse)\n"
              "sh = lambda c, F = None: [line.strip().split(F) for line in os.popen(c).readlines()]\n"
-             "get = lambda l, i, d = None: l[i] if len(l)>i else d\n";
+             "get = lambda l, i, d = None: l[i] if len(l)>i else d\n"
+             "def bytesize(x):\n"
+             "    units = ['P', 'T', 'G', 'M', 'K', 'B']\n"
+             "    for i in range(len(units)):\n"
+             "        if x == 0:\n"
+             "            return '{:6.2f} {}'.format(0,units[-1])\n"
+             "        if x/1024 ** (len(units) - i - 1) > 0:\n"
+             "            return '{:6.2f} {}'.format(x/float(1024 ** (len(units) - i - 1)), units[i])\n";
 
 
     size_t header_len = strlen(header);
