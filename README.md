@@ -3,7 +3,7 @@ pol lets you do awk-like one liners in python.
 
 For example, the following will graph the number of connections for each hosts.
 ```bash
-$ netstat -an | pol "map(print,['{}\t{}'.format(i['e'],'*' * i['c']) for i in sortedbycount([l[4].split(':')[0] for l in _ if len(l)>5 and l[5]=='ESTABLISHED'],True)])"
+$ netstat -an | pol "map(print,['{}\t{}'.format(i['e'],'*' * i['c']) for i in sortedbycount([l[4].rsplit(':', 1)[0] for l in _ if len(l)>5 and l[5]=='ESTABLISHED'],True)])"
 ```
 
 Example output:

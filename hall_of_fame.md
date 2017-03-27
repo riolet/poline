@@ -7,7 +7,7 @@ Please submit a PR with your one-liner to add it to the Hall of Fame.
 #### Graph the number of connections for IP address for your box, and to whom the IP address belongs to
 
 ```bash
-netstat -an | pol "map(print,['{}\t{:25.25}\t{}'.format(i['e'],get([' '.join(l[1:]) for l in sh('whois %s'%i['e']) if len(l)>0 and 'OrgName' in l[0]],0),'*' * i['c']) for i in sortedbycount([l[4].split(':')[0] for l in _ if len(l)>5 and l[5]=='ESTABLISHED'],True)[:10]])"
+netstat -an | pol "map(print,['{}\t{:25.25}\t{}'.format(i['e'],get([' '.join(l[1:]) for l in sh('whois %s'%i['e']) if len(l)>0 and 'OrgName' in l[0]],0),'*' * i['c']) for i in sortedbycount([l[4].rsplit(':', 1)[0] for l in _ if len(l)>5 and l[5]=='ESTABLISHED'],True)[:10]])"
 ```
 
 Example output
