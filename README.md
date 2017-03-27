@@ -57,7 +57,26 @@ $ ls -lah | pol "map(print,_)"
 
 We are in the process of adding utility functions to pol. Contributions are most welcome.
 
-## sortedbycount(list,reversed=False)
+## sh (c, F=None)
+
+Executes shell command specified in string c, and returns stdout in the form of a list of lists.
+
+Example:
+
+The following displays the inode of each file using *stat*
+
+```
+$ ls | pol "[print('{:10.10}\t{}'.format(l[0],[i[3] for i in sh('stat %s'%l[0]) if len(i)>2 and 'Inode:' in i[2]][0])) for l in _]"
+LICENSE   	360621
+Makefile  	360653
+pol       	360606
+pol.c     	360637
+pol.o     	360599
+README.md 	360623
+```
+
+
+## sortedbycount(l,reversed=False)
 
 Sorts a list by assending order, and returns a list of dictionaries, in the form
 
@@ -65,7 +84,7 @@ Sorts a list by assending order, and returns a list of dictionaries, in the form
 [{e:<element1>,c:<count1>'},{e:<element2>,c:<count2>'},...,{e:<elementn>,c:<countn>'},
 ```
 
-For example:
+Example:
 
 ```
 >>> sortedbycount(['i','n','f','o','r','m','a','t','i','o','n'],reverse=True)

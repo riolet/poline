@@ -110,7 +110,9 @@ int main(int argc, char *argv[])
 
     char * header = "from __future__ import print_function\n"
              "import sys\n"
-             "sortedbycount = lambda l, reverse=False: sorted([{'e':e, 'c':l.count(e)} for e in sorted(set(l))], key=lambda k: k['c'], reverse=reverse)\n";
+             "import os\n"
+             "sortedbycount = lambda l, reverse=False: sorted([{'e':e, 'c':l.count(e)} for e in sorted(set(l))], key=lambda k: k['c'], reverse=reverse)\n"
+             "sh = lambda c, F=None: [line.strip().split(F) for line in os.popen(c).readlines()]\n";
 
 
     size_t header_len = strlen(header);
