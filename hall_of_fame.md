@@ -53,13 +53,13 @@ Example output
 
 ```
 107.76 M	chrome	/opt/google/chrome/chrome
-  90.77 M	java	/opt/pycharm-community-2016.2/lib/pycharm.jar
-  61.72 M	java	/opt/installs/pycharm-community-2016.2/jre/jre/lib/rt.jar
-  35.66 M	skype	/usr/lib/i386-linux-gnu/libQtWebKit.so.4.10.2
-  34.21 M	skype	/usr/bin/skype
-  27.73 M	chrome	/usr/lib/nvidia-375/libnvidia-glcore.so.375.39
-  24.71 M	xfwm4	/usr/lib/x86_64-linux-gnu/libicudata.so.55.1
-  24.71 M	mousepad	/usr/lib/x86_64-linux-gnu/libicudata.so.55.1
-  24.71 M	php	/usr/lib/x86_64-linux-gnu/libicudata.so.55.1
-  24.71 M	gimp-2.8	/usr/lib/x86_64-linux-gnu/libicudata.so.55.1
+ 90.77 M	java	/opt/pycharm-community-2016.2/lib/pycharm.jar
+ 61.72 M	java	/opt/installs/pycharm-community-2016.2/jre/jre/lib/rt.jar
+ 35.66 M	skype	/usr/lib/i386-linux-gnu/libQtWebKit.so.4.10.2
+ 34.21 M	skype	/usr/bin/skype
+ 27.73 M	chrome	/usr/lib/nvidia-375/libnvidia-glcore.so.375.39
+ 24.71 M	xfwm4	/usr/lib/x86_64-linux-gnu/libicudata.so.55.1
+ 24.71 M	mousepad	/usr/lib/x86_64-linux-gnu/libicudata.so.55.1
+ 24.71 M	php	/usr/lib/x86_64-linux-gnu/libicudata.so.55.1
+ 24.71 M	gimp-2.8	/usr/lib/x86_64-linux-gnu/libicudata.so.55.1
 ```
