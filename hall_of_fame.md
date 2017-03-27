@@ -22,3 +22,23 @@ Example return value
 151.101.53.140	    Fastly                   	*
 ```
 
+
+#### The top ten commands you use most often
+```
+history | pol "map(print,['{}\t{}'.format(i['e'], i['c']) for i in sortedbycount([l[1] for l in _ if len(l)>1],True)][:10])"
+```
+
+Example return value
+
+```
+netstat	246
+ps	176
+ls	154
+sudo	95
+git	60
+find	44
+cat	39
+history	37
+pol	20
+gcc	18
+```
