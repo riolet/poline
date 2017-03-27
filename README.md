@@ -75,6 +75,16 @@ pol.o     	360599
 README.md 	360623
 ```
 
+## get (l, i, d = None)
+
+get *i*th element from list *l* if the *i*th element exists, or return value d
+
+```
+>>> get([1, 2, 3, 4],1)
+2
+>>> get([1, 2, 3, 4],4,0)
+0
+```
 
 ## sortedbycount(l,reversed=False)
 

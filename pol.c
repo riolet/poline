@@ -112,7 +112,8 @@ int main(int argc, char *argv[])
              "import sys\n"
              "import os\n"
              "sortedbycount = lambda l, reverse=False: sorted([{'e':e, 'c':l.count(e)} for e in sorted(set(l))], key=lambda k: k['c'], reverse=reverse)\n"
-             "sh = lambda c, F=None: [line.strip().split(F) for line in os.popen(c).readlines()]\n";
+             "sh = lambda c, F = None: [line.strip().split(F) for line in os.popen(c).readlines()]\n"
+             "get = lambda l, i, d = None: l[i] if len(l)>i else d\n";
 
 
     size_t header_len = strlen(header);
