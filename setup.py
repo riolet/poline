@@ -17,10 +17,10 @@ setup(
         'console_scripts': ['pol = poline.poline:main'],
     },
     classifiers=[
-        'Topic :: System :: Operating System'
+        'Topic :: System :: Operating System',
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
-        'License :: MIT',
+        'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
