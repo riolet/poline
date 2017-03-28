@@ -65,10 +65,10 @@ def _len(value):
 
 def _stdin(args):
     for line in sys.stdin:
-        if args.split is True:
+        if args.separator is not None:
+            yield Fields(line.strip().split(args.separator))
+        elif args.split is True:
             yield Fields(line.strip().split())
-        elif args.split is not None:
-            yield Fields(line.strip().split(args.split))
         else:
             yield line.strip()
 
@@ -76,7 +76,8 @@ def _stdin(args):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('expression', help="python expression")
-    parser.add_argument('-s', '--split', nargs='?', const=True, default=None, help="field separator")
+    parser.add_argument('-F', '--separator', default=None, help="split each line by SEPARATOR")
+    parser.add_argument('-s', '--split', const=True, default=False, action='store_const', help="split each line")
     args = parser.parse_args()
 
     result = eval('(%s)' % args.expression, globals(), {

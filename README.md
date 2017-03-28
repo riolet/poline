@@ -1,5 +1,5 @@
-# pol
-pol lets you do awk-like one liners in python.
+# poline
+poline lets you do awk-like one liners in python.
 
 For example, the following will graph the number of connections for each hosts.
 
@@ -29,12 +29,19 @@ The equivalent awk version can be found on [commandlinefu](http://www.commandlin
 # Usage
 
 ```
-pol [options] one-liner
-Options
--s [SPLIT], --split [SPLIT]  split by specified separator
+poline.py [-h] [-F SEPARATOR] [-s] expression
+
+positional arguments:
+  expression            python expression
+
+optional arguments:
+  -h, --help                            show this help message and exit
+  -F SEPARATOR, --separator SEPARATOR   split each line by SEPARATOR
+  -s, --split                           split each line
+
 ```
 
-pol stores *stdin* in the variable *_* (underscore) in the form of a generator of lists.
+poline stores *stdin* in the variable *_* (underscore) in the form of a generator of lists.
 
 You can see what's inside *_* with:
 
