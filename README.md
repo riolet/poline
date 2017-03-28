@@ -26,6 +26,15 @@ Example output:
 
 The equivalent awk version can be found on [commandlinefu](http://www.commandlinefu.com/commands/view/2012/graph-of-connections-for-each-hosts).
 
+# Installation
+
+You can easily install poline is via pip:
+
+```
+pip3 install poline
+```
+
+
 # Usage
 
 ```
