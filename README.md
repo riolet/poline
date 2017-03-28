@@ -38,15 +38,17 @@ pip3 install poline
 # Usage
 
 ```
-poline.py [-h] [-F SEPARATOR] [-s] expression
+ poline.py [-h] [-F SEPARATOR] [-s] [-q] expression
 
 positional arguments:
   expression            python expression
 
 optional arguments:
-  -h, --help                            show this help message and exit
-  -F SEPARATOR, --separator SEPARATOR   split each line by SEPARATOR
-  -s, --split                           split each line
+  -h, --help            show this help message and exit
+  -F SEPARATOR, --separator SEPARATOR
+                        split each line by SEPARATOR
+  -s, --split           split each line
+  -q, --quiet           don't implicitly print results
 
 ```
 
@@ -108,7 +110,7 @@ Sorts a list by descending order, and returns a 2-tuple with element and number 
 Example:
 
 ```
-$ pol "pprint(counter('information'), width=20)"
+$ pol -q "pprint(counter('information'), width=20)"
 [('i', 2),
  ('n', 2),
  ('o', 2),

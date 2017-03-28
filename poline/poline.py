@@ -10,7 +10,7 @@ import subprocess
 from itertools import islice
 from operator import itemgetter, attrgetter
 from urllib.parse import urlparse
-from pprint import pprint
+from pprint import pprint, pformat
 
 
 class Fields(list):
@@ -67,7 +67,7 @@ def _stdin(args):
     for line in sys.stdin:
         if args.separator is not None:
             yield Fields(line.strip().split(args.separator))
-        elif args.split is True:
+        elif args.split:
             yield Fields(line.strip().split())
         else:
             yield line.strip()
@@ -78,6 +78,8 @@ def main():
     parser.add_argument('expression', help="python expression")
     parser.add_argument('-F', '--separator', default=None, help="split each line by SEPARATOR")
     parser.add_argument('-s', '--split', const=True, default=False, action='store_const', help="split each line")
+    parser.add_argument('-q', '--quiet', const=True, default=False, action='store_const',
+                        help="don't implicitly print results")
     args = parser.parse_args()
 
     result = eval('(%s)' % args.expression, globals(), {
@@ -85,14 +87,15 @@ def main():
         'len': _len,
     })
 
-    if isinstance(result, (list, collections.Generator)):
-        for line in result:
-            if isinstance(line, (list, tuple)):
-                print(*line)
-            else:
-                print(line)
-    else:
-        print(result)
+    if not args.quiet:
+        if isinstance(result, (list, collections.Generator)):
+            for line in result:
+                if isinstance(line, (list, tuple)):
+                    print(*line)
+                else:
+                    print(line)
+        else:
+            print(result)
 
 
 if __name__ == "__main__":
