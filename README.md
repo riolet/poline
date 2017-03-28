@@ -2,10 +2,16 @@
 pol lets you do awk-like one liners in python.
 
 For example, the following will graph the number of connections for each hosts.
+
+Python>=3.6
 ```bash
 netstat -an | pol "f'''{x}\t{'*'*c}''' for x,c in counter(url(l[4]).hostname for l in _ if get(l,5)=='ESTABLISHED')" -s
 ```
 
+Python>3.0
+```bash
+netstat -an | pol "'''{}\t{}'''.format(x,'*'*c) for x,c in counter(url(l[4]).hostname for l in _ if get(l,5)=='ESTABLISHED')" -s
+```
 Example output:
 
 ```
