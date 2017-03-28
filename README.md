@@ -3,7 +3,7 @@ pol lets you do awk-like one liners in python.
 
 For example, the following will graph the number of connections for each hosts.
 ```bash
-$ netstat -an | pol "map(print,['{}\t{}'.format(i['e'],'*' * i['c']) for i in sortedbycount([l[4].rsplit(':', 1)[0] for l in _ if len(l)>5 and l[5]=='ESTABLISHED'],True)])"
+netstat -an | pol "f'''{x}\t{'*'*c}''' for x,c in counter(url(l[4]).hostname for l in _ if get(l,5)=='ESTABLISHED')" -s
 ```
 
 Example output:
@@ -25,24 +25,15 @@ The equivalent awk version can be found on [commandlinefu](http://www.commandlin
 ```
 pol [options] one-liner
 Options
--F separator 		: Field Separator
+-s [SPLIT], --split [SPLIT]  split by specified separator
 ```
 
-# Quick Start
-You can build and install pol from source as follows:
-
-```
-make
-sudo make install
-```
-
-
-pol stores *stdin* in the variable *_* (underscore) in the form of a list of lists.
+pol stores *stdin* in the variable *_* (underscore) in the form of a generator of lists.
 
 You can see what's inside *_* with:
 
 ```bash
-$ ls -lah | pol "map(print,_)"
+> ls -lah | pol "repr(x) for x in _" -s
 ['total', '156K']
 ['drwxr-xr-x', '11', 'root', 'root', '4.0K', 'Aug', '2', '2016', '.']
 ['drwxr-xr-x', '25', 'root', 'root', '4.0K', 'Mar', '7', '16:17', '..']
@@ -50,8 +41,6 @@ $ ls -lah | pol "map(print,_)"
 ['drwxr-xr-x', '2', 'root', 'root', '4.0K', 'Jul', '19', '2016', 'games']
 ['drwxr-xr-x', '69', 'root', 'root', '20K', 'Mar', '25', '13:44', 'include']
 ```
-
-**N.B.** pol also imports *print_function*, so print can be used as a function.
 
 # Utility Functions
 
@@ -66,7 +55,7 @@ Example:
 The following displays the inode of each file using *stat*
 
 ```
-$ ls | pol "[print('{:10.10}\t{}'.format(l[0],[i[3] for i in sh('stat %s'%l[0]) if len(i)>2 and 'Inode:' in i[2]][0])) for l in _]"
+$ ls | pol "f'{l:10.10}\t%s' % [i[3] for i in sh(['stat',l]) if 'Inode:' in i[2]][0] for l in _" 
 LICENSE   	360621
 Makefile  	360653
 pol       	360606
@@ -75,7 +64,7 @@ pol.o     	360599
 README.md 	360623
 ```
 
-## get (l, i, d = None)
+## get (l, i, d=None)
 
 get *i*th element from list *l* if the *i*th element exists, or return value d
 
@@ -86,19 +75,26 @@ get *i*th element from list *l* if the *i*th element exists, or return value d
 0
 ```
 
-## sortedbycount(l,reversed=False)
+## counter(l, n=10)
 
-Sorts a list by assending order, and returns a list of dictionaries, in the form
+Sorts a list by descending order, and returns a 2-tuple with element and number of appearances in l:
 
 ```
-[{e:<element1>,c:<count1>'},{e:<element2>,c:<count2>'},...,{e:<elementn>,c:<countn>'},
+[(<element>, <count>), ...]
 ```
 
 Example:
 
-```python
->>> sortedbycount(['i','n','f','o','r','m','a','t','i','o','n'],reverse=True)
-[{'c': 2, 'e': 'i'}, {'c': 2, 'e': 'n'}, {'c': 2, 'e': 'o'}, {'c': 1, 'e': 'a'}, {'c': 1, 'e': 'f'}, {'c': 1, 'e': 'm'}, {'c': 1, 'e': 'r'}, {'c': 1, 'e': 't'}]
+```
+$ pol "pprint(counter('information'), width=20)"
+[('i', 2),
+ ('n', 2),
+ ('o', 2),
+ ('f', 1),
+ ('r', 1),
+ ('m', 1),
+ ('a', 1),
+ ('t', 1)]
 ```
 
 ## bytesize(x)
@@ -106,9 +102,9 @@ Returns the number of bytes *x* in a human readable string with a 'B', 'K', 'M',
 
 Example:
 
-```python
->>> bytesize(972693249)
-'927.63 M'
+```
+$ pol "bytesize(972693249)"
+927.63 M
 ```
 
 
@@ -116,8 +112,5 @@ Example:
 
 #### The top ten commands you use most often
 ```
-history | pol "map(print,['{}\t{}'.format(i['e'], i['c']) for i in sortedbycount([l[1] for l in _ if len(l)>1],True)][:10])"
+history | pol "f'{x}\t{c}' for x, c in counter(l[1] for l in _ if len(l) > 1)" -s
 ```
-
-
-
