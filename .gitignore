@@ -37,3 +37,4 @@ pol
 
 dist/
 poline.egg-info/
+*.pyc
