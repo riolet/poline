@@ -4,7 +4,7 @@ from setuptools import setup, Command
 
 setup(
     name='poline',
-    version='0.2',
+    version='0.3',
     description='Python one-liners: Awk-like one-liners for python',
     long_description='pol lets you do awk-like one liners in python.',
     url='https://github.com/riolet/pol',
@@ -21,6 +21,10 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 2.8',
+        'Programming Language :: Python :: 2.9',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',

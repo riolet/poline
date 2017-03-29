@@ -11,7 +11,7 @@ Python>=3.6
 netstat -an | pol "f'''{x}\t{'*'*c}''' for x,c in counter(url(l[4]).hostname for l in _ if get(l,5)=='ESTABLISHED')" -s
 ```
 
-Python>=3.0
+Python>=2.7
 ```bash
 netstat -an | pol "'''{}\t{}'''.format(x,'*'*c) for x,c in counter(url(l[4]).hostname for l in _ if get(l,5)=='ESTABLISHED')" -s
 ```
@@ -31,12 +31,25 @@ The equivalent awk version can be found on [commandlinefu](http://www.commandlin
 
 # Installation
 
+poline is compatible with Python 2.7 to Python 3.6.
+
 You can easily install poline is via pip:
 
 ```
-pip3 install poline
+pip install poline
 ```
 
+or
+
+```
+pip<version> install poline
+```
+
+Where <version> is the version of python you wish to use. For example, if you want to use poline with Python 3.6 installed, you should use
+
+```
+pip3.6 install poline
+```
 
 # Usage
 
