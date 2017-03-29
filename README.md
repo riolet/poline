@@ -54,7 +54,7 @@ pip3.6 install poline
 # Usage
 
 ```
- poline.py [-h] [-F SEPARATOR] [-s] [-q] expression
+ pol [-h] [-F SEPARATOR] [-s] [-q] expression
 
 positional arguments:
   expression            python expression
