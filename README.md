@@ -45,7 +45,7 @@ or
 pip<version> install poline
 ```
 
-Where <version> is the version of python you wish to use. For example, if you want to use poline with Python 3.6 installed, you should use
+Where `<version>` is the version of python you wish to use. For example, if you want to use poline with Python 3.6 installed, you should use
 
 ```
 pip3.6 install poline
