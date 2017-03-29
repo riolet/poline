@@ -71,10 +71,6 @@ def bytesize(x):
             return '{:6.2f} {}'.format(x / (1024**(len(units) - i - 1)), units[i])
 
 
-def _f(x):
-    x.format(**globals())
-
-
 def _len(value):
     if isinstance(value, _collections_Generator):
         return sum(1 for x in value)
