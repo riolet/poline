@@ -1,6 +1,6 @@
 # poline
 
-[![Build Status](https://jenkins-poline.hotbed.io/buildStatus/icon?job=poline-poline&build=1)](https://jenkins-poline.hotbed.io/job/poline-poline/1/)
+[![Build Status](https://jenkins-poline.hotbed.io/buildStatus/icon?job=poline-poline)](https://jenkins-poline.hotbed.io/job/poline-poline/)
 
 poline lets you do awk-like one liners in python.
 
