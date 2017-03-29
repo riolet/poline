@@ -2,8 +2,9 @@ node {
   stage("Checkout") {
     checkout scm
   }
-  stage("Build Image") {
+  stage("Run Tests") {
     sh "ls -lah | PYTHONPATH=`pwd` python2.7 poline/poline.py -s 'repr(x) for x in _'"
+    sh "ls -lah | PYTHONPATH=`pwd` python poline/poline.py -s \"'{}\t{}'.format(x,c) for x, c in counter(l[1] for l in _ if l[1])\""
   }
 }
 
@@ -11,8 +12,9 @@ node ('python34') {
   stage("Checkout") {
     checkout scm
   }
-  stage("Build Image") {
+  stage("Run Tests") {
     sh "ls -lah | PYTHONPATH=`pwd` python3.4 poline/poline.py -s 'repr(x) for x in _'"
+    sh "ls -lah | PYTHONPATH=`pwd` python poline/poline.py -s \"'{}\t{}'.format(x,c) for x, c in counter(l[1] for l in _ if l[1])\""
   }
 }
 

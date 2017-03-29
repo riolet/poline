@@ -6,6 +6,7 @@ import sys
 import argparse
 import collections
 import subprocess
+import json
 
 from itertools import islice
 from operator import itemgetter, attrgetter
@@ -29,12 +30,12 @@ class Fields(list):
             if sys.version_info >= (3, 0):
                 return super().__getitem__(i) if len(self) > i else ''
             else:
-                return super(Fields).__getitem__(i) if len(self) > i else ''
+                return super(Fields, self).__getitem__(i) if len(self) > i else ''
         else:
             if sys.version_info >= (3, 0):
                 return super().__getitem__(i)
             else:
-                return super(Fields).__getitem__(i)
+                return super(Fields, self).__getitem__(i)
 
 def url(url):
     if not re.match('([a-z]+:)?//', url):
@@ -68,6 +69,10 @@ def bytesize(x):
             return '{:6.2f} {}'.format(0,units[-1])
         if x // 1024**(len(units) - i - 1) > 0:
             return '{:6.2f} {}'.format(x / (1024**(len(units) - i - 1)), units[i])
+
+
+def _f(x):
+    x.format(**globals())
 
 
 def _len(value):
