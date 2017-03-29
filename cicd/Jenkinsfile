@@ -3,9 +3,6 @@ node ('python34') {
     checkout scm
   }
   stage("Build Image") {
-    sh "cd ${HOME}"
-    sh "git clone https://github.com/riolet/poline.git"
-    sh "cd poline"
     sh "virtualenv-3.4 poline_venv"
     sh "source poline_venv/bin/activate"
     sh "python setup.py install"
