@@ -47,9 +47,17 @@ def counter(l, n=10):
     return collections.Counter(l).most_common(n)
 
 
-def sh(c, F=None):
-    lines = subprocess.check_output(c).decode().splitlines()
-    return [Fields(line.strip().split(F)) for line in lines]
+def sh(cmd, **kwargs):
+    shell = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    for stdout in shell.stdout:
+        if 'F' in kwargs:
+            yield Fields(stdout.strip().split(kwargs['F']))
+        elif 's' in kwargs and kwargs['s']:
+            yield Fields(stdout.strip().split())
+        else:
+            yield stdout.strip()
+    for stderr in shell.stderr:
+        print(stderr, file=sys.stderr)
 
 
 def get(l, i, d=None):
@@ -86,6 +94,12 @@ def _stdin(args):
             yield Fields(line.strip().split())
         else:
             yield line.strip()
+
+# Hello old friends
+_shell_commands=['ls','ps','netstat','lsof','docker','history']
+
+for _shell_command in _shell_commands:
+    exec ("""{funcname} = lambda args, **kwargs: sh(['{funcname}',args], **kwargs)""".format(funcname=_shell_command))
 
 
 def main():
