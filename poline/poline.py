@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+from __future__ import print_function
 
 import re
 import os
@@ -9,14 +9,18 @@ import subprocess
 
 from itertools import islice
 from operator import itemgetter, attrgetter
-from urllib.parse import urlparse
+try:
+    from urllib.parse import urlparse
+except:
+    from urlparse import urlparse
+
 from pprint import pprint, pformat
 
 if sys.version_info >= (3,5):
     _collections_Generator = collections.Generator
 else:
-    import _compatibility.Generator
-    _collections_Generator = _compatibility.Generator
+    from _compatibility import Generator
+    _collections_Generator = Generator
 
 class Fields(list):
 
@@ -43,7 +47,7 @@ def sh(c, F=None):
 
 
 def get(l, i, d=None):
-    if isinstance(l, collections.Generator):
+    if isinstance(l, _collections_Generator):
         for j, v in enumerate(l):
             if i == j:
                 return v
@@ -62,7 +66,7 @@ def bytesize(x):
 
 
 def _len(value):
-    if isinstance(value, collections.Generator):
+    if isinstance(value, _collections_Generator):
         return sum(1 for x in value)
     else:
         return len(value)
@@ -93,7 +97,7 @@ def main():
     })
 
     if not args.quiet:
-        if isinstance(result, (list, collections.Generator)):
+        if isinstance(result, (list, _collections_Generator)):
             for line in result:
                 if isinstance(line, (list, tuple)):
                     print(*line)
