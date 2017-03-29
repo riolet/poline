@@ -1,6 +1,6 @@
 node ('python34') {
   stage("Checkout") {
-    git url: "https://github.com/riolet/poline", branch: "master"
+    checkout scm
   }
   stage("Build Image") {
     sh "cd ${HOME}"
