@@ -1,0 +1,16 @@
+node ('python34') {
+  stage("Checkout") {
+    git url: "https://github.com/riolet/poline", branch: "master"
+  }
+  stage("Build Image") {
+    sh "cd ${HOME}"
+    sh "git clone https://github.com/riolet/poline.git"
+    sh "cd poline"
+    sh "virtualenv-3.4 poline_venv"
+    sh "source poline_venv/bin/activate"
+    sh "python setup.py install"
+    sh "pol ls - lah | pol - s 'repr(x) for x in _'"
+  }
+}
+
+
