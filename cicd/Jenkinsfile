@@ -3,7 +3,7 @@ node {
     checkout scm
   }
   stage("Run Tests") {
-    sh "common_tests python2.7"
+    sh "tests/common_tests.sh python2.7"
   }
 }
 
@@ -12,7 +12,7 @@ node ('python34') {
     checkout scm
   }
   stage("Run Tests") {
-    sh "common_tests python2.7"
+    sh "tests/common_tests.sh python2.7"
   }
 }
 
