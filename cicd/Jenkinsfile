@@ -3,7 +3,7 @@ node ('python34') {
     checkout scm
   }
   stage("Build Image") {
-    sh "ls - lah | python34 poline/poline.py - s 'repr(x) for x in _'"
+    sh "ls - lah | python3.4 poline/poline.py - s 'repr(x) for x in _'"
   }
 }
 
