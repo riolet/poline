@@ -12,7 +12,7 @@ node ('python34') {
     checkout scm
   }
   stage("Run Tests") {
-    sh "tests/common_tests.sh python2.7"
+    sh "tests/common_tests.sh python3.4"
   }
 }
 
