@@ -51,13 +51,13 @@ def sh(cmd, **kwargs):
     shell = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     for stdout in shell.stdout:
         if 'F' in kwargs:
-            yield Fields(stdout.strip().split(kwargs['F']))
+            yield Fields(stdout.strip().decode().split(kwargs['F']))
         elif 's' in kwargs and kwargs['s']:
-            yield Fields(stdout.strip().split())
+            yield Fields(stdout.strip().decode().split())
         else:
-            yield stdout.strip()
+            yield stdout.strip().decode()
     for stderr in shell.stderr:
-        print(stderr, file=sys.stderr)
+        print(stderr.strip().decode(), file=sys.stderr)
 
 
 def get(l, i, d=None):

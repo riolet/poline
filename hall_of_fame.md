@@ -29,7 +29,7 @@ Python>=3.6
 history | pol "f'{x}\t{c}' for x, c in counter(l[1] for l in _ if l[1])" -s     
 ```
 
-Python>=3.0
+Python>=2.7
 ```
 history | pol "'{}\t{}'.format(x,c) for x, c in counter(l[1] for l in _ if l[1])" -s
 ```
