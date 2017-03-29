@@ -12,6 +12,11 @@ from operator import itemgetter, attrgetter
 from urllib.parse import urlparse
 from pprint import pprint, pformat
 
+if sys.version_info >= (3,5):
+    _collections_Generator = collections.Generator
+else:
+    import _compatibility.Generator
+    _collections_Generator = _compatibility.Generator
 
 class Fields(list):
 
