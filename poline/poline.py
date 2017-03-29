@@ -9,9 +9,9 @@ import subprocess
 
 from itertools import islice
 from operator import itemgetter, attrgetter
-try:
+if sys.version_info >= (3,0):
     from urllib.parse import urlparse
-except:
+else:
     from urlparse import urlparse
 
 from pprint import pprint, pformat
@@ -19,17 +19,22 @@ from pprint import pprint, pformat
 if sys.version_info >= (3,5):
     _collections_Generator = collections.Generator
 else:
-    from _compatibility import Generator
-    _collections_Generator = Generator
+    from _compatibility import _com_collections
+    _collections_Generator = _com_collections.Generator
 
 class Fields(list):
 
     def __getitem__(self, i):
         if isinstance(i, int):
-            return super().__getitem__(i) if len(self) > i else ''
+            if sys.version_info >= (3, 0):
+                return super().__getitem__(i) if len(self) > i else ''
+            else:
+                return super(Fields).__getitem__(i) if len(self) > i else ''
         else:
-            return super().__getitem__(i)
-
+            if sys.version_info >= (3, 0):
+                return super().__getitem__(i)
+            else:
+                return super(Fields).__getitem__(i)
 
 def url(url):
     if not re.match('([a-z]+:)?//', url):
