@@ -41,18 +41,15 @@ objects:
       name: ${APP_NAME}
     name: ${APP_NAME}
   spec:
+    source:
+      type: Git
+      git:
+        uri: 'https://github.com/riolet/poline.git'
+        ref: master
     strategy:
-      jenkinsPipelineStrategy:
-        jenkinsfile: |-
-          node{
-            stage("Checkout") {
-              git url: "${GIT_SOURCE_URL}", branch: "${GIT_SOURCE_REF}"
-            }
-            stage("Build Image") {
-              sh "python poline/poline.py -h"
-            }
-          }
       type: JenkinsPipeline
+      jenkinsPipelineStrategy:
+        jenkinsfilePath: cicd/Jenkinsfile
     triggers:
     - github:
         secret: "${GITHUB_WEBHOOK_SECRET}"
