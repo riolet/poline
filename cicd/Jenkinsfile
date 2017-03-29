@@ -3,10 +3,7 @@ node ('python34') {
     checkout scm
   }
   stage("Build Image") {
-    sh "virtualenv-3.4 poline_venv"
-    sh "source poline_venv/bin/activate"
-    sh "python setup.py install"
-    sh "pol ls - lah | pol - s 'repr(x) for x in _'"
+    sh "pol ls - lah | python34 poline/poline.py - s 'repr(x) for x in _'"
   }
 }
 
