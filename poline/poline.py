@@ -76,7 +76,7 @@ def bytesize(x):
         if x == 0:
             return '{:6.2f} {}'.format(0,units[-1])
         if x // 1024**(len(units) - i - 1) > 0:
-            return '{:6.2f} {}'.format(x / (1024**(len(units) - i - 1)), units[i])
+            return '{:6.2f} {}'.format(x / float(1024**(len(units) - i - 1)), units[i])
 
 
 def _len(value):
