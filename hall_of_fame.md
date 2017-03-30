@@ -69,3 +69,10 @@ Example output
  24.71 M	php	/usr/lib/x86_64-linux-gnu/libicudata.so.55.1
  24.71 M	gimp-2.8	/usr/lib/x86_64-linux-gnu/libicudata.so.55.1
 ```
+
+#### Show disk usage as bar graph
+
+```
+df -B1 | pol -s "'{:10.10}\t{:10.10}\t{:10.10}\t{:10.10}\t{:5.5}\t{}{}\t{:10.10}'.format(i[0],bytesize(i[1],f=True),bytesize(i[2],f=True),bytesize(i[3],f=True),i[4],'▓'*int(10*int(i[2])/int(i[1])+0.5) if i[1].isdigit() else ' '*5, '░'*(10-int(10*int(i[2])/int(i[1])+0.5)) if i[1].isdigit() else ' '*5,i[5]) for i in _"
+```
+
