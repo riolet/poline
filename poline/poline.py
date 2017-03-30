@@ -99,7 +99,7 @@ def _stdin(args):
 _shell_commands=['ls','ps','netstat','lsof','docker','history']
 
 for _shell_command in _shell_commands:
-    exec ("""{funcname} = lambda args, **kwargs: sh(['{funcname}',args], **kwargs)""".format(funcname=_shell_command))
+    exec ("""{funcname} = lambda args, **kwargs: sh(['{funcname}']+args, **kwargs)""".format(funcname=_shell_command))
 
 
 def main():
