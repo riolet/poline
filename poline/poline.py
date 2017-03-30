@@ -89,6 +89,20 @@ def bytesize(x,u=None,f=False):
             return '{:6.2f} {}'.format(x / float(1024**(len(units) - i - 1 - offset)), units[i])
 
 
+def barchart(x, w = 10, p = False, f = False):
+    if sys.version_info >= (3, 0):
+        d = '\N{DARK SHADE}'
+        l = '\N{LIGHT SHADE}'
+    else:
+        d = u'\u2593'.encode('utf-8')
+        l = u'\u2591'.encode('utf-8')
+    if p:
+        x = int(round (x * w))
+        return d*x + l*(w-x)
+    else:
+        return d*x
+
+
 def _len(value):
     if isinstance(value, _collections_Generator):
         return sum(1 for x in value)
