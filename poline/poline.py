@@ -70,13 +70,36 @@ def get(l, i, d=None):
         return l[i] if len(l) > i else d
 
 
-def bytesize(x):
+def bytesize(x, u = None, s = False):
+    #Check if we're running ignore non-digits mode
+    if not s:
+        if not x.isdigit():
+            return x
+        else:
+            x=float(x)
+
     units = ['P', 'T', 'G', 'M', 'K', 'B']
+    offset = 0
+    if u is not None and units.index(u) > 0:
+        offset = len(units)-units.index(u) - 1
     for i in range(len(units)):
         if x == 0:
             return '{:6.2f} {}'.format(0,units[-1])
-        if x // 1024**(len(units) - i - 1) > 0:
-            return '{:6.2f} {}'.format(x / (1024**(len(units) - i - 1)), units[i])
+        if x // 1024**(len(units) - i - 1 - offset) > 0:
+            return '{:6.2f} {}'.format(x / float(1024**(len(units) - i - 1 - offset)), units[i])
+
+def barchart(x, p = False, w = 10):
+    if sys.version_info >= (3, 0):
+        d = '\N{DARK SHADE}'
+        l = '\N{LIGHT SHADE}'
+    else:
+        d = u'\u2593'.encode('utf-8')
+        l = u'\u2591'.encode('utf-8')
+    if p:
+        x = int(round (x * w))
+        return d*x + l*(w-x)
+    else:
+        return d*x
 
 
 def _len(value):
@@ -96,10 +119,10 @@ def _stdin(args):
             yield line.strip()
 
 # Hello old friends
-_shell_commands=['ls','ps','netstat','lsof','docker','history']
-
+_shell_commands= ['cp', 'df', 'docker', 'du', 'find', 'git', 'history',
+                  'ln', 'ls', 'lsof', 'mv', 'netstat', 'nmcli', 'ps', 'rm']
 for _shell_command in _shell_commands:
-    exec ("""{funcname} = lambda args, **kwargs: sh(['{funcname}',args], **kwargs)""".format(funcname=_shell_command))
+    exec ("""{funcname} = lambda args=[], **kwargs: sh(['{funcname}']+args, **kwargs)""".format(funcname=_shell_command))
 
 
 def main():

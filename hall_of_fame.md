@@ -69,3 +69,22 @@ Example output
  24.71 M	php	/usr/lib/x86_64-linux-gnu/libicudata.so.55.1
  24.71 M	gimp-2.8	/usr/lib/x86_64-linux-gnu/libicudata.so.55.1
 ```
+
+#### Show disk usage as bar graph
+
+```
+df -B1 | pol -s "'{:20.20}\t{:10.10}\t{:10.10}\t{:10.10}\t{:5.5}\t{}\t{:10.10}'.format(i[0],bytesize(i[1]),bytesize(i[2]),bytesize(i[3]),i[4], barchart(int(i[2])/float(i[1]),p=True) if i[1].isdigit() else ' '*5,i[5]) for i in _"
+```
+
+Example output
+```
+$ df -B1 | pol -s "'{:20.20}\t{:10.10}\t{:10.10}\t{:10.10}\t{:5.5}\t{}\t{:10.10}'.format(i[0],bytesize(i[1]),bytesize(i[2]),bytesize(i[3]),i[4], barchart(int(i[2])/float(i[1]),p=True) if i[1].isdigit() else ' '*10,i[5]) for i in _"
+Filesystem          	1B-blocks 	Used      	Available 	Use% 	          	Mounted
+/dev/mapper/docker-8	  9.99 G  	  8.06 G  	  1.93 G  	81%  	▓▓▓▓▓▓▓▓░░	/
+tmpfs               	 31.37 G  	  0.00 B  	 31.37 G  	0%   	░░░░░░░░░░	/dev
+tmpfs               	 31.37 G  	  0.00 B  	 31.37 G  	0%   	░░░░░░░░░░	/sys/fs/cg
+/dev/sda3           	211.08 G  	 26.49 G  	173.84 G  	14%  	▓░░░░░░░░░	/etc/hosts
+shm                 	 64.00 M  	  0.00 B  	 64.00 M  	0%   	░░░░░░░░░░	/dev/shm
+```
+
+
