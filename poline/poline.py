@@ -70,9 +70,9 @@ def get(l, i, d=None):
         return l[i] if len(l) > i else d
 
 
-def bytesize(x,u=None,f=False):
+def bytesize(x, u = None, s = False):
     #Check if we're running ignore non-digits mode
-    if f:
+    if not s:
         if not x.isdigit():
             return x
         else:
@@ -88,8 +88,7 @@ def bytesize(x,u=None,f=False):
         if x // 1024**(len(units) - i - 1 - offset) > 0:
             return '{:6.2f} {}'.format(x / float(1024**(len(units) - i - 1 - offset)), units[i])
 
-
-def barchart(x, w = 10, p = False, f = False):
+def barchart(x, p = False, w = 10):
     if sys.version_info >= (3, 0):
         d = '\N{DARK SHADE}'
         l = '\N{LIGHT SHADE}'

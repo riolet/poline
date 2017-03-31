@@ -86,33 +86,34 @@ You can see what's inside *_* with:
 
 We are in the process of adding utility functions to pol. Contributions are most welcome.
 
-## sh (c, F=None)
 
-Executes shell command specified in string c, and returns stdout in the form of a list of lists.
+
+## barchart(x, p = False, w = 10)
+
+Returns the value *x* as a barchart. If *p* is true, x is intepreted as a percentage, with 100% being *w* wide.
+
+```
+$ pol barchart(x, p = False, w = 10, f = False)
+
+&#2593;&#2593;&#2593;&#2593;&#2593;&#2593;&#2593;&#2591&#2591&#2591
+```
+
+
+## bytesize(x, u = None, s = False)
+
+Returns the number of bytes *x* in a human readable string with a 'B', 'K', 'M', 'G', 'T', 'P' prefix.
+
+If x is a string, bytesize tries to convert it to a float, or returns the string as is.
+
+*u* specifies that bytes are in a different unit, for example u='K' if the size is in 1-K blocks.
+
+*s* specifies that byte size should be strict.
 
 Example:
 
-The following displays the inode of each file using *stat*
-
 ```
-$ ls | pol "f'{l:10.10}\t%s' % [i[3] for i in sh(['stat',l]) if 'Inode:' in i[2]][0] for l in _" 
-LICENSE   	360621
-Makefile  	360653
-pol       	360606
-pol.c     	360637
-pol.o     	360599
-README.md 	360623
-```
-
-## get (l, i, d=None)
-
-get *i*th element from list *l* if the *i*th element exists, or return value d
-
-```python
->>> get([1, 2, 3, 4],1)
-2
->>> get([1, 2, 3, 4],4,0)
-0
+$ pol "bytesize(972693249)"
+927.63 M
 ```
 
 ## counter(l, n=10)
@@ -137,16 +138,50 @@ $ pol -q "pprint(counter('information'), width=20)"
  ('t', 1)]
 ```
 
-## bytesize(x)
-Returns the number of bytes *x* in a human readable string with a 'B', 'K', 'M', 'G', 'T', 'P' prefix.
+## get (l, i, d=None)
+
+get *i*th element from list *l* if the *i*th element exists, or return value d
+
+```python
+>>> get([1, 2, 3, 4],1)
+2
+>>> get([1, 2, 3, 4],4,0)
+0
+```
+
+
+## sh (c, F=None)
+
+Executes shell command specified in string c, and returns stdout in the form of a list of lists.
 
 Example:
 
+The following displays the inode of each file using *stat*
+
 ```
-$ pol "bytesize(972693249)"
-927.63 M
+$ ls | pol "f'{l:10.10}\t%s' % [i[3] for i in sh(['stat',l]) if 'Inode:' in i[2]][0] for l in _"
+LICENSE   	360621
+Makefile  	360653
+pol       	360606
+pol.c     	360637
+pol.o     	360599
+README.md 	360623
 ```
 
+As well, the popular shell commands *cp*, *df*, *docker*, *du*, *find*, *git*, *history*, *ln*, *ls*, *lsof*, *mv*, *netstat*, *nmcli*, *ps*, *rm* are all functions. For example
+
+They behave as if the command is being passed to *sh* above.
+
+```
+pol "ls(['-lah'])"
+total 72K
+drwxrwxr-x 11 rrezel rrezel 4.0K Mar 30 19:16 .
+drwxrwxr-x 36 rrezel rrezel 4.0K Mar 28 22:32 ..
+-rw-rw-r--  1 rrezel rrezel 4.2K Mar 30 19:15 README.md
+-rw-rw-r--  1 rrezel rrezel   39 Mar 28 22:32 setup.cfg
+-rw-rw-r--  1 rrezel rrezel 1.2K Mar 29 18:19 setup.py
+drwxrwxr-x  2 rrezel rrezel 4.0K Mar 30 19:12 tests
+```
 
 # Examples
 
@@ -154,3 +189,4 @@ $ pol "bytesize(972693249)"
 ```
 history | pol "f'{x}\t{c}' for x, c in counter(l[1] for l in _ if len(l) > 1)" -s
 ```
+

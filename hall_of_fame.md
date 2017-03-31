@@ -73,6 +73,16 @@ Example output
 #### Show disk usage as bar graph
 
 ```
-df -B1 | pol -s "'{:10.10}\t{:10.10}\t{:10.10}\t{:10.10}\t{:5.5}\t{}{}\t{:10.10}'.format(i[0],bytesize(i[1],f=True),bytesize(i[2],f=True),bytesize(i[3],f=True),i[4],'#'*int(10*int(i[2])/int(i[1])+0.5) if i[1].isdigit() else ' '*5, '_'*(10-int(10*int(i[2])/int(i[1])+0.5)) if i[1].isdigit() else ' '*5,i[5]) for i in _"
+df -B1 | pol -s "'{:20.20}\t{:10.10}\t{:10.10}\t{:10.10}\t{:5.5}\t{}\t{:10.10}'.format(i[0],bytesize(i[1]),bytesize(i[2]),bytesize(i[3]),i[4], barchart(int(i[2])/float(i[1]),p=True) if i[1].isdigit() else ' '*5,i[5]) for i in _"
+```
+
+Example output
+```
+Filesystem          	1B-blocks 	Used      	Available 	Use% 	     	Mounted
+/dev/mapper/docker-8	  9.99 G  	  9.09 G  	921.96 M  	91%  	&#2593;&#2593;&#2593;&#2593;&#2593;&#2593;&#2593;&#2593;&#2593;&#2591	/
+tmpfs               	 31.37 G  	  0.00 B  	 31.37 G  	0%   	&#2591&#2591&#2591&#2591&#2591&#2591&#2591&#2591&#2591&#2591	/dev
+tmpfs               	 31.37 G  	  0.00 B  	 31.37 G  	0%   	&#2591&#2591&#2591&#2591&#2591&#2591&#2591&#2591&#2591&#2591	/sys/fs/cg
+/dev/sda3           	211.08 G  	 26.49 G  	173.85 G  	14%  	&#2593;&#2591&#2591&#2591&#2591&#2591&#2591&#2591&#2591&#2591	/etc/hosts
+shm                 	 64.00 M  	  0.00 B  	 64.00 M  	0%   	&#2591&#2591&#2591&#2591&#2591&#2591&#2591&#2591&#2591&#2591	/dev/shm
 ```
 
