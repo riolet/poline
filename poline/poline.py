@@ -8,6 +8,7 @@ import collections
 import subprocess
 import json
 from polinefuncs import *
+from polinefields import Fields
 
 from itertools import islice
 from operator import itemgetter, attrgetter
@@ -24,19 +25,7 @@ else:
     from _compatibility import _com_collections
     _collections_Generator = _com_collections.Generator
 
-class Fields(list):
 
-    def __getitem__(self, i):
-        if isinstance(i, int):
-            if sys.version_info >= (3, 0):
-                return super().__getitem__(i) if len(self) > i else ''
-            else:
-                return super(Fields, self).__getitem__(i) if len(self) > i else ''
-        else:
-            if sys.version_info >= (3, 0):
-                return super().__getitem__(i)
-            else:
-                return super(Fields, self).__getitem__(i)
 
 
 

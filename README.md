@@ -154,16 +154,29 @@ get *i*th element from list *l* if the *i*th element exists, or return value d
 ```
 
 
-## sh (c, F=None)
+## sh (*args, **kwargs)
 
-Executes shell command specified in string c, and returns stdout in the form of a list of lists.
+Executes shell command and arguments specified in *args*, returns stdout in the form of a list of lists.
+
+Recognized kwargs:
+F SEPARATOR     split each line by SEPARATOR
+s True|False    split each line
 
 Example:
 
 The following displays the inode of each file using *stat*
 
+Python>=3.6
 ```
-$ ls | pol "f'{l:10.10}\t%s' % [i[3] for i in sh(['stat',l]) if 'Inode:' in i[2]][0] for l in _"
+$ ls | pol "f'{l:20.20}\t%s' % [i[3] for i in sh(['stat',l]) if 'Inode:' in i[2]][0] for l in _"
+```
+
+Python>=2.7
+```
+$ ls | pol2 "[columns(20,None).format(l,i[3]) for i in sh('stat',l,s=True) if 'Inode:' in i[2]][0] for l in _"
+```
+
+```
 LICENSE   	360621
 Makefile  	360653
 pol       	360606
@@ -172,12 +185,14 @@ pol.o     	360599
 README.md 	360623
 ```
 
+**N.B.** The syntax of *sh* has changed, but old syntax is still supported for the sake of backward compatibility.
+
 As well, the popular shell commands *cp*, *df*, *docker*, *du*, *find*, *git*, *history*, *ln*, *ls*, *lsof*, *mv*, *netstat*, *nmcli*, *ps*, *rm* are all functions. For example
 
 They behave as if the command is being passed to *sh* above.
 
 ```
-$ pol "ls(['-lah'])"
+$ pol "ls('-lah')"
 total 24K
 drwxr-xr-x 7 default root  185 Mar 31 02:21 .
 drwxrwxrwt 9 root    root  185 Mar 31 02:24 ..

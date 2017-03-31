@@ -11,7 +11,10 @@ ls -lah | ${testpol} -s 'repr(x) for x in _'
 echo "Test: '{}\t{}'.format(x,c) for x, c in counter(l[1] for l in _ if l[1])"
 ls -lah | ${testpol} -s "'{}\t{}'.format(x,c) for x, c in counter(l[1] for l in _ if l[1])"
 
-echo "Test: i[5] for i in netstat('-tulpn',s=True)"
+echo "Test: ls()"
+${testpol} "i[5] for i in ls('-lah',s=True)"
+
+echo "Test: ls() with old syntax"
 ${testpol} "i[5] for i in ls(['-lah'],s=True)"
 
 echo "Test: df as bar graph"

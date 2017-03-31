@@ -4,6 +4,7 @@ import re
 import sys
 import collections
 import subprocess
+from polinefields import Fields
 
 if sys.version_info >= (3,0):
     from urllib.parse import urlparse
@@ -79,9 +80,9 @@ def barchart(x, p = False, w = 10):
         return d*x
 
 
-def columns(fmts):
+def columns(*args, **kwargs):
     fmtstr = ""
-    for f in fmts:
+    for f in args:
         if len(fmtstr) > 0:
             fmtstr +="\t"
         if f is None:
