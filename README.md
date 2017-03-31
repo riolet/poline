@@ -177,14 +177,14 @@ As well, the popular shell commands *cp*, *df*, *docker*, *du*, *find*, *git*, *
 They behave as if the command is being passed to *sh* above.
 
 ```
-pol "ls(['-lah'])"
-total 72K
-drwxrwxr-x 11 rrezel rrezel 4.0K Mar 30 19:16 .
-drwxrwxr-x 36 rrezel rrezel 4.0K Mar 28 22:32 ..
--rw-rw-r--  1 rrezel rrezel 4.2K Mar 30 19:15 README.md
--rw-rw-r--  1 rrezel rrezel   39 Mar 28 22:32 setup.cfg
--rw-rw-r--  1 rrezel rrezel 1.2K Mar 29 18:19 setup.py
-drwxrwxr-x  2 rrezel rrezel 4.0K Mar 30 19:12 tests
+$ pol "ls(['-lah'])"
+total 24K
+drwxr-xr-x 7 default root  185 Mar 31 02:21 .
+drwxrwxrwt 9 root    root  185 Mar 31 02:24 ..
+drwxr-xr-x 8 default root  163 Mar 31 02:36 .git
+-rw-r--r-- 1 default root  300 Mar 31 02:21 .gitignore
+-rw-r--r-- 1 default root 1.1K Mar 31 02:21 LICENSE
+-rw-r--r-- 1 default root 3.5K Mar 31 02:21 README.md
 ```
 
 # Examples
