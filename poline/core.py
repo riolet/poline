@@ -26,8 +26,8 @@ else:
     _collections_Generator = _com_collections.Generator
 
 
-
-
+T = True
+F = False
 
 def _len(value):
     if isinstance(value, _collections_Generator):
