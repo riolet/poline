@@ -12,7 +12,7 @@ setup(
     author_email='poline@riolet.com',
     maintainer='Rohana Rezel',
     maintainer_email='poline@riolet.com',
-    packages = ['poline', '_compatibility'],
+    packages = ['poline'],
     entry_points={
         'console_scripts': ['pol = poline.core:main'],
     },

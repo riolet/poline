@@ -22,7 +22,7 @@ from pprint import pprint, pformat
 if sys.version_info >= (3,5):
     _collections_Generator = collections.Generator
 else:
-    from _compatibility import _com_collections
+    from poline import _com_collections
     _collections_Generator = _com_collections.Generator
 
 

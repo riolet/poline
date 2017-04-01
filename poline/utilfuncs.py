@@ -11,6 +11,12 @@ if sys.version_info >= (3,0):
 else:
     from urlparse import urlparse
 
+if sys.version_info >= (3,5):
+    _collections_Generator = collections.Generator
+else:
+    from poline import _com_collections
+    _collections_Generator = _com_collections.Generator
+
 def url(url):
     if not re.match('([a-z]+:)?//', url):
         url = '//' + url
