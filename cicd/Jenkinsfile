@@ -1,4 +1,4 @@
-node {
+node ('python27') {
   stage("Checkout") {
     checkout scm
   }
