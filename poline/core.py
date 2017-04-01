@@ -52,14 +52,18 @@ for _shell_command in _shell_commands:
     exec ("""{funcname} = lambda *args, **kwargs: sh(['{funcname}']+list(args), **kwargs)""".format(funcname=_shell_command))
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('expression', help="python expression")
     parser.add_argument('-F', '--separator', default=None, help="split each line by SEPARATOR")
     parser.add_argument('-s', '--split', const=True, default=False, action='store_const', help="split each line")
     parser.add_argument('-q', '--quiet', const=True, default=False, action='store_const',
                         help="don't implicitly print results")
-    args = parser.parse_args()
+
+    if argv is not None:
+        args = parser.parse_args(argv)
+    else:
+        args = parser.parse_args()
 
     result = eval('(%s)' % args.expression, globals(), {
         '_': _stdin(args),

@@ -7,6 +7,7 @@ virtualenv -p ${1} poline_venv
 source poline_venv/bin/activate
 ${1} setup.py install
 
+#Run smoke tests
 echo 'Test: repr(x) for x in _'
 ls -lah | pol -s 'repr(x) for x in _'
 
@@ -27,3 +28,7 @@ pol "'{:20.20}\t{:10.10}\t{:10.10}\t{:10.10}\t{:5.5}\t{}\t{:10.10}'.format(i[0],
 
 echo "Test: columns function"
 pol "columns(20,10,10,10,5,None,10).format(i[0],bytesize(i[1]),bytesize(i[2]),bytesize(i[3]),i[4], barchart(int(i[2])/float(i[1]),p=True) if i[1].isdigit() else ' '*10,i[5]) for i in df('-B1',s=T)"
+
+#Run unit tests
+$1 tests/unittests.py
+
