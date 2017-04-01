@@ -61,10 +61,10 @@ class TestUtilFuncs(unittest.TestCase):
     def test_sh(self):
         test_string = "Hello World"
 
-        result = poline.utilfuncs.sh('echo', '{}'.format(test_string)).next()
+        result = next(poline.utilfuncs.sh('echo', '{}'.format(test_string)))
         self.assertEquals(test_string, result)
 
-        result = poline.utilfuncs.sh('echo', '{}'.format(test_string), s=True).next()
+        result = next(poline.utilfuncs.sh('echo', '{}'.format(test_string), s=True))
         self.assertEquals(test_string.split(), result)
 
 
