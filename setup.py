@@ -14,7 +14,7 @@ setup(
     maintainer_email='poline@riolet.com',
     packages = ['poline', '_compatibility'],
     entry_points={
-        'console_scripts': ['pol = poline.poline:main'],
+        'console_scripts': ['pol = poline.core:main'],
     },
     classifiers=[
         'Topic :: System :: Operating System',

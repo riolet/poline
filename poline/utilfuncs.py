@@ -4,7 +4,7 @@ import re
 import sys
 import collections
 import subprocess
-from polinefields import Fields
+from poline.fields import Fields
 
 if sys.version_info >= (3,0):
     from urllib.parse import urlparse

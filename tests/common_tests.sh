@@ -3,7 +3,7 @@
 export PYTHONPATH=`pwd`
 export PYTHONIOENCODING=UTF-8
 
-export testpol="${1} poline/poline.py"
+export testpol="${1} poline/core.py"
 
 echo 'Test: repr(x) for x in _'
 ls -lah | ${testpol} -s 'repr(x) for x in _'

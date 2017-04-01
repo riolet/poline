@@ -7,8 +7,8 @@ import argparse
 import collections
 import subprocess
 import json
-from polinefuncs import *
-from polinefields import Fields
+from poline.utilfuncs import *
+from poline.fields import Fields
 
 from itertools import islice
 from operator import itemgetter, attrgetter
