@@ -4,7 +4,7 @@ from setuptools import setup, Command
 
 setup(
     name='poline',
-    version='0.4.1',
+    version='0.5',
     description='Python one-liners: Awk-like one-liners for python',
     long_description='pol lets you do awk-like one liners in python.',
     url='https://github.com/riolet/pol',
@@ -12,9 +12,9 @@ setup(
     author_email='poline@riolet.com',
     maintainer='Rohana Rezel',
     maintainer_email='poline@riolet.com',
-    packages = ['poline', '_compatibility'],
+    packages = ['poline'],
     entry_points={
-        'console_scripts': ['pol = poline.poline:main'],
+        'console_scripts': ['pol = poline.core:main'],
     },
     classifiers=[
         'Topic :: System :: Operating System',

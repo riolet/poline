@@ -39,3 +39,7 @@ dist/
 poline.egg-info/
 *.pyc
 build/
+
+.coverage
+htmlcov/
+poline_venv/
