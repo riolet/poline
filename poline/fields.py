@@ -1,5 +1,5 @@
 import sys
-import utilfuncs
+import poline.utilfuncs
 
 class Field(str):
     def h(self, **kwargs):
