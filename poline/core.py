@@ -98,6 +98,7 @@ def main(argv=None):
 
                 for result_pard_idx in range(len(result_parts)+10):
                     invars['_{}'.format(result_pard_idx)] = result_parts[result_pard_idx]
+
                 new_result += [eval('(%s)' % expression, globals(), invars)]
             result = new_result
 
