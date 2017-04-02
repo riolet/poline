@@ -3,7 +3,7 @@ import poline.utilfuncs
 
 class Field(str):
     def h(self, **kwargs):
-        return utilfuncs.bytesize(self, **kwargs)
+        return  poline.utilfuncs.bytesize(self, **kwargs)
     def i(self, **kwargs):
         return int(self, **kwargs)
     def f(self):
