@@ -67,6 +67,10 @@ class TestUtilFuncs(unittest.TestCase):
         result = next(poline.utilfuncs.sh('echo', '{}'.format(test_string), s=True))
         self.assertEquals(test_string.split(), result)
 
+class TestChainedExpressions(unittest.TestCase):
+
+    def test_chained_express(self):
+        self.assertEqual(poline.core.main(["['Hello World','Yellow World']",":_0"]), ['Hello', 'Yellow'])
 
 if __name__ == '__main__':
     unittest.main()

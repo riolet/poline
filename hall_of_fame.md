@@ -10,6 +10,10 @@ Please submit a PR with your one-liner to add it to the Hall of Fame.
 netstat -an | pol "'%-17s%-40s%s' % (x, get([' '.join(l[1:]) for l in sh(['whois', x]) if 'OrgName' in l[0]], 0), '*' * c) for x, c in counter(url(l[4]).hostname for l in _ if l[5] == 'ESTABLISHED')" -s
 ```
 
+```bash
+netstat -an | grep ESTABLISHED | pol ":url(_4).hostname" "counter(_)" "'%-17s%-40s%s' % (x, get([' '.join(l[1:]) for l in sh(['whois', x],s=T) if 'OrgName' in l[0]], 0), '*' * c) for x, c in _"
+```
+
 Example output
 
 ```

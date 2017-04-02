@@ -54,7 +54,7 @@ pip3.6 install poline
 # Usage
 
 ```
- pol [-h] [-F SEPARATOR] [-s] [-q] expression
+ pol [-h] [-F SEPARATOR] [-s] [-q] expression1 [expression2]
 
 positional arguments:
   expression            python expression
@@ -82,9 +82,12 @@ You can see what's inside *_* with:
 ['drwxr-xr-x', '69', 'root', 'root', '20K', 'Mar', '25', '13:44', 'include']
 ```
 
+You can chain expressions as if you were chaining commands on bash using pipes.
+
+
 # Utility Functions
 
-We are in the process of adding utility functions to pol. Contributions are most welcome.
+We are in the process of adding utility functions to poline. Contributions are most welcome.
 
 
 

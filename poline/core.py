@@ -46,7 +46,7 @@ def _stdin(args):
             yield line.strip()
 
 # Hello old friends
-_shell_commands= ['cp', 'df', 'docker', 'du', 'find', 'git', 'history',
+_shell_commands= ['cp', 'df', 'docker', 'du', 'find', 'grep', 'git', 'history',
                   'ln', 'ls', 'lsof', 'mv', 'netstat', 'nmcli', 'ps', 'rm']
 for _shell_command in _shell_commands:
     exec ("""{funcname} = lambda *args, **kwargs: sh(['{funcname}']+list(args), **kwargs)""".format(funcname=_shell_command))
@@ -54,7 +54,7 @@ for _shell_command in _shell_commands:
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument('expression', help="python expression")
+    parser.add_argument('expression', nargs='+', help="python expression")
     parser.add_argument('-F', '--separator', default=None, help="split each line by SEPARATOR")
     parser.add_argument('-s', '--split', const=True, default=False, action='store_const', help="split each line")
     parser.add_argument('-q', '--quiet', const=True, default=False, action='store_const',
@@ -65,10 +65,38 @@ def main(argv=None):
     else:
         args = parser.parse_args()
 
-    result = eval('(%s)' % args.expression, globals(), {
-        '_': _stdin(args),
-        'len': _len,
-    })
+    expi = 0
+    nexp = len(args.expression)
+    result = _stdin(args)
+
+    for expi in range(nexp):
+        expression = args.expression[expi]
+        # First expression reads from stdin
+        if expression.startswith(":"):
+            expression = expression[1:]
+            new_result = []
+            for result_line in result:
+                invars = {
+                    '_': result,
+                    '__': result_line,
+                    'len': _len,
+                }
+                result_parts =  result_line.split()
+                for result_pard_idx in range(len(result_parts)):
+                    invars['_{}'.format(result_pard_idx)] = result_parts[result_pard_idx]
+                new_result += [eval('(%s)' % expression, globals(), invars)]
+            result = new_result
+        else:
+            invars = {
+                    '_': result,
+                    'len': _len,
+            }
+            result = eval('(%s)' % expression, globals(), invars)
+
+
+    #argv is not None when we're calling this from a unit test
+    if argv is not None:
+        return result
 
     if not args.quiet:
         if isinstance(result, (list, _collections_Generator)):
