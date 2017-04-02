@@ -82,8 +82,25 @@ You can see what's inside *_* with:
 ['drwxr-xr-x', '69', 'root', 'root', '20K', 'Mar', '25', '13:44', 'include']
 ```
 
+## Chaining expressions
+
 You can chain expressions as if you were chaining commands on bash using pipes.
 
+```
+netstat -an | grep ESTABLISHED | pol "|url(_4).hostname" "counter(_)" ":x, c: Cols(17,40,None).f(x, get([' '.join(l[1:]) for l in sh(['whois', x],s=T) if 'OrgName' in l[0]], 0), '*' * c)"
+```
+
+## Expression types
+
+### Standard expressions
+
+### Awk-like expressions
+`|epxression`
+
+`%FS%expression`
+
+### Tuple expressions
+`:x, y:expression`
 
 # Utility Functions
 
@@ -96,7 +113,7 @@ We are in the process of adding utility functions to poline. Contributions are m
 Returns the value *x* as a barchart. If *p* is true, x is intepreted as a percentage, with 100% being *w* wide.
 
 ```
-$ df -B1 | pol -s "'{:20.20}\t{:10.10}\t{:10.10}\t{:10.10}\t{:5.5}\t{}\t{:10.10}'.format(i[0],bytesize(i[1]),bytesize(i[2]),bytesize(i[3]),i[4], barchart(int(i[2])/float(i[1]),p=True) if i[1].isdigit() else ' '*10,i[5]) for i in _"
+$ df -B1 | pol "|Cols(20,10,10,10,5,None,10).f(_0,bytesize(_1),bytesize(_2),bytesize(_3),_4, barchart(int(_2)/float(_1),p=True) if _1.isdigit() else ' '*10,_5)"
 Filesystem          	1B-blocks 	Used      	Available 	Use% 	          	Mounted
 /dev/mapper/docker-8	  9.99 G  	  8.06 G  	  1.93 G  	81%  	▓▓▓▓▓▓▓▓░░	/
 tmpfs               	 31.37 G  	  0.00 B  	 31.37 G  	0%   	░░░░░░░░░░	/dev
@@ -176,7 +193,7 @@ $ ls | pol "f'{l:20.20}\t%s' % [i[3] for i in sh(['stat',l]) if 'Inode:' in i[2]
 
 Python>=2.7
 ```
-$ ls | pol2 "[columns(20,None).format(l,i[3]) for i in sh('stat',l,s=True) if 'Inode:' in i[2]][0] for l in _"
+$ ls | pol "[columns(20,None).format(l,i[3]) for i in sh('stat',l,s=True) if 'Inode:' in i[2]][0] for l in _"
 ```
 
 ```

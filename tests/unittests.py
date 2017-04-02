@@ -70,7 +70,7 @@ class TestUtilFuncs(unittest.TestCase):
 class TestChainedExpressions(unittest.TestCase):
 
     def test_chained_express(self):
-        self.assertEqual(poline.core.main(["['Hello World','Yellow World']",":_0"]), ['Hello', 'Yellow'])
+        self.assertEqual(poline.core.main(["['Hello World','Yellow World']","|_0"]), ['Hello', 'Yellow'])
 
 if __name__ == '__main__':
     unittest.main()

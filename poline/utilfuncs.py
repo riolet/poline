@@ -44,6 +44,12 @@ def sh(*args, **kwargs):
         print(stderr.strip().decode(), file=sys.stderr)
 
 
+def skip(iterable, n=1):
+    for n in range(n):
+        next(iterable)
+    return iterable
+
+
 def get(l, i, d=None):
     if isinstance(l, _collections_Generator):
         for j, v in enumerate(l):
@@ -84,6 +90,27 @@ def barchart(x, p = False, w = 10):
         return d*x + l*(w-x)
     else:
         return d*x
+
+
+class Cols:
+
+    def __init__(self,*args, **kwargs):
+        self.fmtstr = ""
+        for f in args:
+            if len(self.fmtstr) > 0:
+                self.fmtstr += "\t"
+            if f is None:
+                self.fmtstr += "{}"
+            elif isinstance(f, int):
+                self.fmtstr += "{:%d.%d}" % (f, f)
+            elif isinstance(f, int):
+                self.fmtstr += "{:%f}" % (f)
+            else:
+                fstr = '{}'.format(f)
+                self.fmtstr += "{%s}" % fstr
+
+    def f(self, *args):
+        return self.fmtstr.format(*args)
 
 
 def columns(*args, **kwargs):
