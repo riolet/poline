@@ -1,9 +1,10 @@
 from __future__ import print_function
+from __future__ import unicode_literals
 
 import unittest
 
 import sys
-from io import BytesIO
+from io import StringIO
 
 import poline.core
 import poline.utilfuncs
@@ -97,15 +98,15 @@ class TestUtilFuncs(unittest.TestCase):
 class TestChainedExpressions(unittest.TestCase):
 
     def test_chained_expression_awklike(self):
-        self.assertEqual(poline.core.main(["['Hello World','Yellow World']","|_0"]), ['Hello', 'Yellow'])
+        self.assertEqual(poline.core.main(["['Hello World','Yellow World']", "|_0"]), ['Hello', 'Yellow'])
 
     def test_chained_expression_awklike_with_FS(self):
-        sys.stdin = BytesIO(TestData.find)
+        sys.stdin = StringIO(TestData.find)
         self.assertEqual(poline.core.main(["%/%_6"]), ['markers.py', 'requirements.py', 'specifiers.py', 'utils.py',
                                                        'version.py'])
 
     def test_chained_expression_tupled(self):
-        sys.stdin = BytesIO(TestData.lsla)
+        sys.stdin = StringIO(TestData.lsla)
         self.assertEqual(next(poline.core.main(["skip(_)", "|_2", "counter(_)", ":x, c: [x,c]"])),
                          ['default', 6])
 

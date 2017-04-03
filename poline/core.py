@@ -45,6 +45,7 @@ def _stdin(args):
             yield Fields(line.strip().split())
         else:
             yield line.strip()
+    sys.stdin.close()
 
 # Hello old friends
 _shell_commands= ['cp', 'df', 'docker', 'du', 'find', 'grep', 'git', 'history',
