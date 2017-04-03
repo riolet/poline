@@ -4,9 +4,9 @@ from setuptools import setup, Command
 
 setup(
     name='poline',
-    version='0.5',
+    version='0.6',
     description='Python one-liners: Awk-like one-liners for python',
-    long_description='pol lets you do awk-like one liners in python.',
+    long_description='Usage: pol [-h] [-F SEPARATOR] [-s] [-q] expression',
     url='https://github.com/riolet/pol',
     author='Rohana Rezel',
     author_email='poline@riolet.com',

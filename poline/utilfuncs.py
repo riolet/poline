@@ -44,6 +44,12 @@ def sh(*args, **kwargs):
         print(stderr.strip().decode(), file=sys.stderr)
 
 
+def skip(iterable, n=1):
+    for n in range(n):
+        next(iterable)
+    return iterable
+
+
 def get(l, i, d=None):
     if isinstance(l, _collections_Generator):
         for j, v in enumerate(l):
@@ -86,19 +92,32 @@ def barchart(x, p = False, w = 10):
         return d*x
 
 
-def columns(*args, **kwargs):
-    fmtstr = ""
-    for f in args:
-        if len(fmtstr) > 0:
-            fmtstr +="\t"
-        if f is None:
-            fmtstr += "{}"
-        elif isinstance(f, int ):
-            fmtstr +="{:%d.%d}"%(f,f)
-        elif isinstance(f, int):
-            fmtstr += "{:%f}"%(f)
-        else:
-            fstr ='{}'.format(f)
-            fmtstr +="{%s}"%fstr
+class Cols:
+    def gen_n_columns(self,n):
+        for i in range(n):
+            if len(self.fmtstr) > 0:
+                self.fmtstr += "\t"
+            self.fmtstr += "{}"
 
-    return fmtstr
+    def __init__(self, *args, **kwargs):
+        self.fmtstr = ""
+        if 'n' in kwargs:
+            self.gen_n_columns(kwargs['n'])
+        else:
+            for f in args:
+                if len(self.fmtstr) > 0:
+                    self.fmtstr += "\t"
+                if f is None:
+                    self.fmtstr += "{}"
+                elif isinstance(f, int):
+                    self.fmtstr += "{:%d.%d}" % (f, f)
+                elif isinstance(f, int):
+                    self.fmtstr += "{:%f}" % (f)
+                else:
+                    fstr = '{}'.format(f)
+                    self.fmtstr += "{%s}" % fstr
+
+    def f(self, *args):
+        if self.fmtstr == "":
+            self.gen_n_columns(len(args))
+        return self.fmtstr.format(*args)

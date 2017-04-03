@@ -29,6 +29,9 @@ pol "'{:20.20}\t{:10.10}\t{:10.10}\t{:10.10}\t{:5.5}\t{}\t{:10.10}'.format(i[0],
 echo "Test: columns function"
 pol "columns(20,10,10,10,5,None,10).format(i[0],bytesize(i[1]),bytesize(i[2]),bytesize(i[3]),i[4], barchart(int(i[2])/float(i[1]),p=True) if i[1].isdigit() else ' '*10,i[5]) for i in df('-B1',s=T)"
 
+echo "Test: chained expressions"
+pol "df('-B1')" ":columns(20,10,10,10,5,None,10).format(_0,bytesize(_1),bytesize(_2),bytesize(_3),_4, barchart(int(_2)/float(_1),p=True) if _1.isdigit() else ' '*10,_5)"
+
 #Run unit tests
 $1 tests/unittests.py
 
