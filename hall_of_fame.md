@@ -52,7 +52,7 @@ gcc	18
 #### The list of largest open files
 
 ```
-lsof / | pol -s "skip (_)" "sorted(set([(i[0],i[8],i[6].i(),i[6]) for i in _]),key=itemgetter(2),reverse=True)[:10]" ":p,f,si,s:Cols().f(s.h(),p,f)"
+lsof / | pol "skip (_)" "|_0,_8,_6.i()" "set(_)" "sorted(_,key=itemgetter(2),reverse=True)[:10]" ":p,f,s:Cols().f(bytesize(s,s=True),p,f)"
 ```
 
 Example output

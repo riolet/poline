@@ -63,10 +63,10 @@ def get(l, i, d=None):
 def bytesize(x, u = None, s = False):
     #Check if we're running ignore non-digits mode
     if not s:
-        if not x.isdigit():
+        if not isinstance(x, (int, float)) and not x.isdigit():
             return x
         else:
-            x=float(x)
+            x = float(x)
 
     units = ['P', 'T', 'G', 'M', 'K', 'B']
     offset = 0
