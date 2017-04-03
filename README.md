@@ -231,13 +231,13 @@ Example:
 The following displays the inode of each file using *stat*
 
 Python>=3.6
-```
-$ ls | pol "f'{l:20.20}\t%s' % [i[3] for i in sh(['stat',l]) if 'Inode:' in i[2]][0] for l in _"
+```bash
+ls | pol "f'{l:20.20}\t%s' % [i[3] for i in sh(['stat',l]) if 'Inode:' in i[2]][0] for l in _"
 ```
 
 Python>=2.7
-```
-$ ls | pol "[columns(20,None).format(l,i[3]) for i in sh('stat',l,s=True) if 'Inode:' in i[2]][0] for l in _"
+```bash
+ls | pol "[Cols(20,None).f(l,i[3]) for i in sh('stat',l,s=True) if 'Inode:' in i[2]][0] for l in _"
 ```
 
 ```
