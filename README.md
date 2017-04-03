@@ -8,7 +8,7 @@ For example, the following will graph the number of connections for each hosts.
 
 
 ```bash
-netstat -an | pol "Cols(n=2).f(x,'*'*c) for x,c in counter(url(l[4]).hostname for l in _ if get(l,5)=='ESTABLISHED')" -s
+ netstat -an | grep ESTABLISHED | pol "|url(_4).hostname" "counter(_)" ":x, c: Cols(17,40).f(x,'*' * c)"
 ```
 
 Example output:
@@ -283,6 +283,6 @@ Unpacks ```*args``` to pass to ```String.format()```. If format string has not b
 
 #### The top ten commands you use most often
 ```
-history | pol "f'{x}\t{c}' for x, c in counter(l[1] for l in _ if len(l) > 1)" -s
+history | pol "|_1" "counter(_)" ":x,c:Cols(5,None).f(x,c)"
 ```
 
