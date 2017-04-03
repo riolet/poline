@@ -134,7 +134,7 @@ default   	/tmp/poline/poline_venv/bin/python
 ```
 
 
-### Tuple expressions
+### lambda-like expressions
 `:*args:expression`
 Works on the last result item by item (or line by line if the last result was ```stdin```)
 Receives the n-tuple *args.

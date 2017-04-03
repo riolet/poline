@@ -2,5 +2,5 @@
 
 # v0.6
 * chained expressions
-* :expressions and _n field notation
+* Expression types: awk-like expression and lambda-like expressions
 
