@@ -93,39 +93,31 @@ def barchart(x, p = False, w = 10):
 
 
 class Cols:
-
-    def __init__(self,*args, **kwargs):
-        self.fmtstr = ""
-        for f in args:
+    def gen_n_columns(self,n):
+        for i in range(n):
             if len(self.fmtstr) > 0:
                 self.fmtstr += "\t"
-            if f is None:
-                self.fmtstr += "{}"
-            elif isinstance(f, int):
-                self.fmtstr += "{:%d.%d}" % (f, f)
-            elif isinstance(f, int):
-                self.fmtstr += "{:%f}" % (f)
-            else:
-                fstr = '{}'.format(f)
-                self.fmtstr += "{%s}" % fstr
+            self.fmtstr += "{}"
+
+    def __init__(self, *args, **kwargs):
+        self.fmtstr = ""
+        if 'n' in kwargs:
+            self.gen_n_columns(kwargs['n'])
+        else:
+            for f in args:
+                if len(self.fmtstr) > 0:
+                    self.fmtstr += "\t"
+                if f is None:
+                    self.fmtstr += "{}"
+                elif isinstance(f, int):
+                    self.fmtstr += "{:%d.%d}" % (f, f)
+                elif isinstance(f, int):
+                    self.fmtstr += "{:%f}" % (f)
+                else:
+                    fstr = '{}'.format(f)
+                    self.fmtstr += "{%s}" % fstr
 
     def f(self, *args):
+        if self.fmtstr == "":
+            self.gen_n_columns(len(args))
         return self.fmtstr.format(*args)
-
-
-def columns(*args, **kwargs):
-    fmtstr = ""
-    for f in args:
-        if len(fmtstr) > 0:
-            fmtstr +="\t"
-        if f is None:
-            fmtstr += "{}"
-        elif isinstance(f, int ):
-            fmtstr +="{:%d.%d}"%(f,f)
-        elif isinstance(f, int):
-            fmtstr += "{:%f}"%(f)
-        else:
-            fstr ='{}'.format(f)
-            fmtstr +="{%s}"%fstr
-
-    return fmtstr
