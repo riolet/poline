@@ -50,7 +50,7 @@ pip3.6 install poline
 # Usage
 
 ```
- pol [-h] [-F SEPARATOR] [-s] [-q] expression1 [expression2]
+pol [-h] [-F SEPARATOR] [-s] [-q] expression1 [expression2]
 
 positional arguments:
   expression            python expression
@@ -69,7 +69,7 @@ poline stores *stdin* in the variable *_* (underscore) in the form of a generato
 You can see what's inside *_* with:
 
 ```bash
-$ ls -la | pol "x for x in _"
+ls -la | pol "x for x in _"
 'total 20'
 'drwxr-xr-x  2 default root  104 Apr  2 23:34 .'
 'drwxr-xr-x 10 default root  230 Apr  2 23:34 ..'
@@ -157,7 +157,7 @@ We are in the process of adding utility functions to poline. Contributions are m
 Returns the value *x* as a barchart. If *p* is true, x is intepreted as a percentage, with 100% being *w* wide.
 
 ```
-$ df -B1 | pol "|Cols(20,10,10,10,5,None,10).f(_0,bytesize(_1),bytesize(_2),bytesize(_3),_4, barchart(int(_2)/float(_1),p=True) if _1.isdigit() else ' '*10,_5)"
+df -B1 | pol "|Cols(20,10,10,10,5,None,10).f(_0,_1.h(),_2.h(),_3.h(),_4, barchart(_2.i()/_1.f(),p=True) if _1.isdigit() else ' '*10,_5)"
 Filesystem          	1B-blocks 	Used      	Available 	Use% 	          	Mounted
 /dev/mapper/docker-8	  9.99 G  	  8.06 G  	  1.93 G  	81%  	▓▓▓▓▓▓▓▓░░	/
 tmpfs               	 31.37 G  	  0.00 B  	 31.37 G  	0%   	░░░░░░░░░░	/dev
@@ -256,15 +256,36 @@ As well, the popular shell commands *cp*, *df*, *docker*, *du*, *find*, *git*, *
 They behave as if the command is being passed to *sh* above.
 
 ```
-$ pol "ls('-lah')"
-total 24K
-drwxr-xr-x 7 default root  185 Mar 31 02:21 .
-drwxrwxrwt 9 root    root  185 Mar 31 02:24 ..
-drwxr-xr-x 8 default root  163 Mar 31 02:36 .git
--rw-r--r-- 1 default root  300 Mar 31 02:21 .gitignore
--rw-r--r-- 1 default root 1.1K Mar 31 02:21 LICENSE
--rw-r--r-- 1 default root 3.5K Mar 31 02:21 README.md
+pol "ls('-lah')"
 ```
+
+```
+total 20K
+drwxr-xr-x  2 default root  104 Apr  2 23:34 .
+drwxr-xr-x 10 default root  230 Apr  2 23:34 ..
+-rw-r--r--  1 default root    0 Mar 31 14:33 __init__.py
+-rw-r--r--  1 default root 1.7K Apr  2 23:31 _com_collections.py
+-rw-r--r--  1 default root 4.2K Apr  2 23:33 core.py
+-rw-r--r--  1 default root  750 Apr  2 23:34 fields.py
+-rw-r--r--  1 default root 3.4K Apr  2 23:31 utilfuncs.py
+```
+
+## skip(iter, n=1)
+
+Skip the first ```n``` items from the Iterator ```iter```.
+
+```
+pol "ls('-lah')" "skip(_,n=3)"
+```
+
+```
+-rw-r--r--  1 default root    0 Mar 31 14:33 __init__.py
+-rw-r--r--  1 default root 1.7K Apr  2 23:31 _com_collections.py
+-rw-r--r--  1 default root 4.2K Apr  2 23:33 core.py
+-rw-r--r--  1 default root  750 Apr  2 23:34 fields.py
+-rw-r--r--  1 default root 3.4K Apr  2 23:31 utilfuncs.py
+```
+
 
 # Utility classes
 
