@@ -129,7 +129,7 @@ def main(argv=None):
 
     if not args.quiet:
         # Ensure unicode support
-        sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout)
+        sys.stdout = codecs.getwriter('UTF-8')(sys.stdout)
         if isinstance(result, (list, _collections_Generator)):
             for line in result:
                 if isinstance(line, (list, tuple)):
