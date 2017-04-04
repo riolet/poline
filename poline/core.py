@@ -58,6 +58,21 @@ for _shell_command in _shell_commands:
     exec ("""{funcname} = lambda *args, **kwargs: sh(['{funcname}']+list(args), **kwargs)""".format(funcname=_shell_command))
 
 
+def uniprint(*args, **kwargs):
+
+    try:
+        print (*args, **kwargs)
+    except UnicodeEncodeError:
+        sys.stdout = codecs.getwriter('UTF-8')(sys.stdout)
+        converted=[]
+        for item in args:
+            if isinstance(item,bytes):
+                converted += [item.decode()]
+            else:
+                converted += [item]
+        converted_args = tuple(converted)
+        print(*converted_args, **kwargs)
+
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('expression', nargs='+', help="python expression")
@@ -129,7 +144,7 @@ def main(argv=None):
 
     if not args.quiet:
         # Ensure unicode support
-        sys.stdout = codecs.getwriter('UTF-8')(sys.stdout)
+
         if isinstance(result, (list, _collections_Generator)):
             for line in result:
                 if isinstance(line, (list, tuple)):
