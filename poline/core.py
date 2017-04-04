@@ -67,7 +67,7 @@ def uniprint(*args, **kwargs):
         converted=[]
         for item in args:
             if isinstance(item,bytes):
-                converted += [item.decode()]
+                converted += [item.encode()]
             else:
                 converted += [item]
         converted_args = tuple(converted)
