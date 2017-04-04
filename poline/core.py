@@ -1,5 +1,7 @@
 from __future__ import print_function
 
+import codecs
+import locale
 import re
 import os
 import sys
@@ -121,12 +123,13 @@ def main(argv=None):
             }
             result = eval('(%s)' % expression, globals(), invars)
 
-
-    #argv is not None when we're calling this from a unit test
+    # argv is not None when we're calling this from a unit test
     if argv is not None:
         return result
 
     if not args.quiet:
+        # Ensure unicode support
+        sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout)
         if isinstance(result, (list, _collections_Generator)):
             for line in result:
                 if isinstance(line, (list, tuple)):
