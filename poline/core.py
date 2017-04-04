@@ -73,6 +73,7 @@ def uniprint(*args, **kwargs):
         converted_args = tuple(converted)
         print(*converted_args, **kwargs)
 
+
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('expression', nargs='+', help="python expression")
@@ -148,11 +149,11 @@ def main(argv=None):
         if isinstance(result, (list, _collections_Generator)):
             for line in result:
                 if isinstance(line, (list, tuple)):
-                    print(*line)
+                    uniprint(*line)
                 else:
-                    print(line)
+                    uniprint(line)
         else:
-            print(result)
+            uniprint(result)
 
 
 if __name__ == "__main__":
