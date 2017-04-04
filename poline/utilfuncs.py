@@ -80,8 +80,8 @@ def bytesize(x, u = None, s = False):
 
 def barchart(x, p = False, w = 10):
     if sys.version_info >= (3, 0):
-        d = '\N{DARK SHADE}'
-        l = '\N{LIGHT SHADE}'
+        d = '\N{DARK SHADE}'.encode('utf-8')
+        l = '\N{LIGHT SHADE}'.encode('utf-8')
     else:
         d = u'\u2593'.encode('utf-8')
         l = u'\u2591'.encode('utf-8')
