@@ -38,13 +38,16 @@ def _len(value):
 
 
 def _stdin(args):
-    for line in sys.stdin:
-        if args.separator is not None:
-            yield Fields(line.strip().split(args.separator))
-        elif args.split:
-            yield Fields(line.strip().split())
-        else:
-            yield line.strip()
+    if not args.jason:
+        for line in sys.stdin:
+            if args.separator is not None:
+                yield Fields(line.strip().split(args.separator))
+            elif args.split:
+                yield Fields(line.strip().split())
+            else:
+                yield line.strip()
+    else:
+        yield json.loads(sys.stdin.read())
     sys.stdin.close()
 
 # Hello old friends
@@ -59,7 +62,10 @@ for _shell_command in _shell_commands:
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('expression', nargs='+', help="python expression")
+    parser.add_argument('-I', '--import', nargs='+', default=None, help="import modules")
+    parser.add_argument('-j', '--jason', const=True, default=False, action='store_const', help="expect JSON on stdin")
     parser.add_argument('-F', '--separator', default=None, help="split each line by SEPARATOR")
+    parser.add_argument('-L', '--lambda', nargs='+', default=None, help="define lambda")
     parser.add_argument('-s', '--split', const=True, default=False, action='store_const', help="split each line")
     parser.add_argument('-q', '--quiet', const=True, default=False, action='store_const',
                         help="don't implicitly print results")

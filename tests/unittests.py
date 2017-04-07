@@ -1,6 +1,7 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import json
 import unittest
 
 import sys
@@ -9,17 +10,19 @@ from io import StringIO
 import poline.core
 import poline.utilfuncs
 
+import os
+
 class TestData:
     list_of_lists = [2, 4, 7, 5, 7, 6, 3, 2, 7, 5,
-           6, 6, 6, 8, 9, 2, 6, 6, 7, 1,
-           9, 4, 5, 2, 6, 3, 4, 2, 7, 7,
-           4, 5, 8, 8, 7, 7, 9, 8, 7, 7,
-           1, 9, 5, 7, 1, 6, 8, 6, 5, 6,
-           9, 6, 9, 8, 3, 8, 5, 9, 9, 5,
-           9, 7, 8, 4, 9, 7, 6, 8, 9, 5,
-           9, 8, 5, 4, 5, 3, 9, 9, 9, 7,
-           0, 4, 6, 4, 8, 4, 9, 8, 8, 9,
-           7, 8, 3, 9, 3, 3, 8, 8, 9, 8]
+                     6, 6, 6, 8, 9, 2, 6, 6, 7, 1,
+                     9, 4, 5, 2, 6, 3, 4, 2, 7, 7,
+                     4, 5, 8, 8, 7, 7, 9, 8, 7, 7,
+                     1, 9, 5, 7, 1, 6, 8, 6, 5, 6,
+                     9, 6, 9, 8, 3, 8, 5, 9, 9, 5,
+                     9, 7, 8, 4, 9, 7, 6, 8, 9, 5,
+                     9, 8, 5, 4, 5, 3, 9, 9, 9, 7,
+                     0, 4, 6, 4, 8, 4, 9, 8, 8, 9,
+                     7, 8, 3, 9, 3, 3, 8, 8, 9, 8]
     lsla = """total 28
 drwxr-xr-x 11 default root  252 Apr  1 04:01 .
 drwxrwxrwt  9 root    root  169 Apr  1 04:01 ..
@@ -35,14 +38,23 @@ drwxr-xr-x  2 default root   52 Mar 31 14:33 _compatibility"""
 ./poline_venv/lib/python3.4/site-packages/packaging/utils.py
 ./poline_venv/lib/python3.4/site-packages/packaging/version.py"""
 
-class TestArgs(unittest.TestCase):
+    def __init__(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        with open(os.path.join(dir_path,'blob.json')) as jfile:
+            if sys.version_info >= (3, 0):
+                self.json_blob = jfile.read()
+            else:
+                self.json_blob = unicode(jfile.read())
 
+
+
+class TestArgs(unittest.TestCase):
     def test_empty_args(self):
         try:
             poline.core.main(argv=[])
             self.assertTrue(False)
         except SystemExit as exc:
-            self.assertEquals (exc.code, 2)
+            self.assertEquals(exc.code, 2)
 
     def test_expression_only(self):
         try:
@@ -70,20 +82,19 @@ class TestArgs(unittest.TestCase):
 
 
 class TestUtilFuncs(unittest.TestCase):
-
     list_of_lists = [2, 4, 7, 5, 7, 6, 3, 2, 7, 5,
-           6, 6, 6, 8, 9, 2, 6, 6, 7, 1,
-           9, 4, 5, 2, 6, 3, 4, 2, 7, 7,
-           4, 5, 8, 8, 7, 7, 9, 8, 7, 7,
-           1, 9, 5, 7, 1, 6, 8, 6, 5, 6,
-           9, 6, 9, 8, 3, 8, 5, 9, 9, 5,
-           9, 7, 8, 4, 9, 7, 6, 8, 9, 5,
-           9, 8, 5, 4, 5, 3, 9, 9, 9, 7,
-           0, 4, 6, 4, 8, 4, 9, 8, 8, 9,
-           7, 8, 3, 9, 3, 3, 8, 8, 9, 8]
+                     6, 6, 6, 8, 9, 2, 6, 6, 7, 1,
+                     9, 4, 5, 2, 6, 3, 4, 2, 7, 7,
+                     4, 5, 8, 8, 7, 7, 9, 8, 7, 7,
+                     1, 9, 5, 7, 1, 6, 8, 6, 5, 6,
+                     9, 6, 9, 8, 3, 8, 5, 9, 9, 5,
+                     9, 7, 8, 4, 9, 7, 6, 8, 9, 5,
+                     9, 8, 5, 4, 5, 3, 9, 9, 9, 7,
+                     0, 4, 6, 4, 8, 4, 9, 8, 8, 9,
+                     7, 8, 3, 9, 3, 3, 8, 8, 9, 8]
 
     def test_counter(self):
-        self.assertEquals(poline.utilfuncs.counter (TestData.list_of_lists, n=7),
+        self.assertEquals(poline.utilfuncs.counter(TestData.list_of_lists, n=7),
                           [(9, 19), (8, 17), (7, 15), (6, 13), (5, 11), (4, 9), (3, 7)])
 
     def test_sh(self):
@@ -95,8 +106,8 @@ class TestUtilFuncs(unittest.TestCase):
         result = next(poline.utilfuncs.sh('echo', '{}'.format(test_string), s=True))
         self.assertEquals(test_string.split(), result)
 
-class TestChainedExpressions(unittest.TestCase):
 
+class TestChainedExpressions(unittest.TestCase):
     def test_chained_expression_awklike(self):
         self.assertEqual(poline.core.main(["['Hello World','Yellow World']", "|_0"]), ['Hello', 'Yellow'])
 
@@ -110,6 +121,14 @@ class TestChainedExpressions(unittest.TestCase):
         self.assertEqual(next(poline.core.main(["skip(_)", "|_2", "counter(_)", ":x, c: [x,c]"])),
                          ['default', 6])
 
+
+class TestJSONStdin(unittest.TestCase):
+    json_blob = TestData().json_blob
+
+    def test_json_stdin(self):
+        sys.stdin = StringIO(self.json_blob)
+        self.assertEqual(poline.core.main(["-j", "next(_)", "_['data']['public_description']"]),
+                         u'Computer Programming')
 
 if __name__ == '__main__':
     unittest.main()
