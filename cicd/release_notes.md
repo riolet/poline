@@ -1,5 +1,14 @@
 # Release Notes
 
+# v0.7
+
+## Changes
+
+* url() utility function becomes parseurl()
+
+## New in v0.7
+
+
 # v0.6
 
 ## New in v0.6

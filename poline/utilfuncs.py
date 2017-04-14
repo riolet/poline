@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import json
 import re
 import sys
 import collections
@@ -8,8 +9,12 @@ from poline.fields import Fields
 
 if sys.version_info >= (3,0):
     from urllib.parse import urlparse
+    from urllib.request import urlopen
 else:
     from urlparse import urlparse
+    from urllib2 import urlopen
+
+
 
 if sys.version_info >= (3,5):
     _collections_Generator = collections.Generator
@@ -17,7 +22,7 @@ else:
     from poline import _com_collections
     _collections_Generator = _com_collections.Generator
 
-def url(url):
+def parseurl(url):
     if not re.match('([a-z]+:)?//', url):
         url = '//' + url
     return urlparse(url)
@@ -78,6 +83,7 @@ def bytesize(x, u = None, s = False):
         if x // 1024**(len(units) - i - 1 - offset) > 0:
             return '{:6.2f} {}'.format(x / float(1024**(len(units) - i - 1 - offset)), units[i])
 
+
 def barchart(x, p = False, w = 10):
     if sys.version_info >= (3, 0):
         d = '\N{DARK SHADE}'
@@ -91,6 +97,9 @@ def barchart(x, p = False, w = 10):
     else:
         return d*x
 
+
+def jurl(url):
+    return json.loads(urlopen(url).read().decode('utf-8'))
 
 class Cols:
     def gen_n_columns(self,n):

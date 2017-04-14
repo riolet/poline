@@ -8,7 +8,7 @@ For example, the following will graph the number of connections for each hosts.
 
 
 ```bash
- netstat -an | grep ESTABLISHED | pol "|url(_4).hostname" "counter(_)" ":x, c: Cols(17,40).f(x,'*' * c)"
+ netstat -an | grep ESTABLISHED | pol "|parseurl(_4).hostname" "counter(_)" ":x, c: Cols(17,40).f(x,'*' * c)"
 ```
 
 Example output:
@@ -110,7 +110,7 @@ Each list item is of the class `Field`, which is derived from `String`. `Field` 
 You can chain expressions as if you were chaining commands on bash using pipes.
 
 ```
-netstat -an | grep ESTABLISHED | pol "|url(_4).hostname" "counter(_)" ":x, c: Cols(17,40,None).f(x, get([' '.join(l[1:]) for l in sh(['whois', x],s=T) if 'OrgName' in l[0]], 0), '*' * c)"
+netstat -an | grep ESTABLISHED | pol "|parseurl(_4).hostname" "counter(_)" ":x, c: Cols(17,40,None).f(x, get([' '.join(l[1:]) for l in sh(['whois', x],s=T) if 'OrgName' in l[0]], 0), '*' * c)"
 ```
 
 ## Expression types

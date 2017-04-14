@@ -7,7 +7,7 @@ Please submit a PR with your one-liner to add it to the Hall of Fame.
 #### Graph the number of connections for IP address for your box, and to whom the IP address belongs to
 
 ```bash
-netstat -an | grep ESTABLISHED | pol "|url(_4).hostname" "counter(_)" ":x, c: Cols(17,40,None).f(x, get([' '.join(l[1:]) for l in sh(['whois', x],s=T) if 'OrgName' in l[0]], 0), '*' * c)"
+netstat -an | grep ESTABLISHED | pol "|parseurl(_4).hostname" "counter(_)" ":x, c: Cols(17,40,None).f(x, get([' '.join(l[1:]) for l in sh(['whois', x],s=T) if 'OrgName' in l[0]], 0), '*' * c)"
 ```
 
 Example output
